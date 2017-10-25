@@ -13,6 +13,6 @@ class Test
 {
     public function index()
     {
-        return ' test 2';
+        return view('test/index');
     }
 }

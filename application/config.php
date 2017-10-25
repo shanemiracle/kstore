@@ -138,6 +138,7 @@ return [
         'taglib_begin' => '{',
         // 标签库标签结束标记
         'taglib_end'   => '}',
+        'view_base'     => __DIR__ . '/../public/template/'
     ],
 
     // 视图输出字符串内容替换

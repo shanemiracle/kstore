@@ -9,10 +9,13 @@
 namespace app\index\controller;
 
 
-class Api
+use think\controller\Rest;
+
+class Api extends Rest
 {
     public function index()
     {
-        return 'api';
+        $ar = ['root'=>'k1','child'=>'c1'];
+        return $this->response($ar,'json',200);
     }
 }
