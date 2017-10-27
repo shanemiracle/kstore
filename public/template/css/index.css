@@ -1,0 +1,23 @@
+.header {
+  background: #4688f1;
+  height: 50px;
+}
+.header span {
+  line-height: 50px;
+  color: #fff;
+  margin-left: 40px;
+  font-size: 20px;
+}
+.wrap {
+  margin-left: 60px;
+}
+.wrap .sidebar {
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-top: none;
+  min-width: 280px;
+  min-height: 600px;
+}
+.wrap .content {
+  padding: 20px;
+}
