@@ -12,4 +12,8 @@ class Index
     {
         return "test";
     }
+    public function home()
+    {
+        return "home";
+    }
 }

@@ -30,24 +30,75 @@
 <body>
     <div class='header'>
         <span>智微知库</span>
+        <span class='f-r mr-10'>coco</span>
     </div>
     <div class='wrapper clearfix'>
         <div class="sidebars f-l">
-            <input type="text" placeholder="按文件名搜索" class="input-text radius size-S">
-            <div id="container" class='mt20'>
+            <div class='filter'>
+               <input type="text" placeholder="按文件名搜索" class="input-text radius size-S">
+            </div>
+                 <div id="container" class='mt20 '>
+            </div>
+            <div id="container1">
+              <ul>
+                <li data-jstree='{"opened":true}'>Root node
+                  <ul>
+                    <li>Child node 1</li>
+                    <li>Child node 2</li>
+                  </ul>
+                </li>
+              </ul>
             </div>
         </div>
+
+
         <div class="contents f-l ">
-            <input type="text" placeholder="按编辑人搜索" class="input-text radius size-S">
-            <p class='mt-10'>
-                <a class="btn btn-primary size-S radius create  href=" javascript:void(0) ">创建</a>
-		        </p>
+            <div class="filter clearfix">
+                 <a class="btn btn-primary size-S radius create  href=" javascript:void(0) ">重命名</a>
+                 <a class="btn btn-primary size-S radius create  href=" javascript:void(0) ">上传第一层</a>
+                 <div class="formControls col-xs-4 col-sm-3 f-r">
+                    <input type="text" class="input-text radius" value="" placeholder="按编辑人搜索" id=''>
+                 </div>
+            </div>
+            <div class="filter clearfix">
+                 <a class="btn btn-primary size-S radius create  href=" javascript:void(0) ">文件更新</a>
+                 <a class="btn btn-primary size-S radius create  href=" javascript:void(0) ">创建第二层</a>
+                 <div class="formControls col-xs-4 col-sm-3 f-r">
+                    <input type="text" class="input-text radius" value="" placeholder="按编辑人搜索" id=''>
+                 </div>
+            </div>
+            <div class="filter clearfix">
+                 <a class="btn btn-primary size-S radius create  href=" javascript:void(0) ">上传文件</a>
+                 <a class="btn btn-primary size-S radius create  href=" javascript:void(0) ">上传记录</a>
+                 <div class="formControls col-xs-4 col-sm-3 f-r">
+                    <input type="text" class="input-text radius" value="" placeholder="按编辑人搜索" id=''>
+                 </div>
+            </div>
+            <div class="filter clearfix">
+                 <a class="btn btn-primary size-S radius create  href=" javascript:void(0) ">文件更新</a>
+                 <a class="btn btn-primary size-S radius create  href=" javascript:void(0) ">上传记录</a>
+                 <a class="btn btn-primary size-S radius create  href=" javascript:void(0) ">创建第四层</a>
+                 <div class="formControls col-xs-4 col-sm-3 f-r">
+                    <input type="text" class="input-text radius" value="" placeholder="按编辑人搜索" id=''>
+                 </div>
+            </div>
+                <p class='text-c c-666 f20 mt10 mb10'>文件列表</p>
+                <table class='table f16'>
+                   <thead class="text-c">
+                    <td>文件名</td>    
+                    <td>编辑人</td>    
+                    <td>修改时间</td>   
+                    <td>文件大小</td>   
+                   </thead>
+                   <tr class="text-c c-666">
+                    <td>123.doc</td>
+                    <td>coco</td>
+                    <td>12.11</td>
+                    <td>12k</td>
+                   </tr>    
+                </table>
 
-		        <table>
-	        	
-		        </table>
-
-	         </div>
+             </div>
      </div>
 
 <script type="text/javascript " src="../lib/h-ui/lib/jquery/1.9.1/jquery.min.js "></script>

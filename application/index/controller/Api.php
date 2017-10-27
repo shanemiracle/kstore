@@ -15,7 +15,17 @@ class Api extends Rest
 {
     public function index()
     {
-        $ar = ['root'=>'k1','child'=>'c1'];
+    //     $ar = [
+    //     	{'id':"0-0",'text'=>"质量体系文件"},
+    //     	{'id':'1-0','text'=>"质量管理文件",''
+    // ];
+    	$ar = [
+    		['id'=>'0-0','text'=>"质量体系管理系统"],
+    		['id'=>'1-0','text'=>"质量体系文件",'parent'=>'0-0'],
+    		['id'=>'2-0','text'=>"SOP100 控制文件",'parent'=>'1-0'],
+    		['id'=>'2-1','text'=>"SOP200 管理文件",'parent'=>'1-0'],
+    	];
+        
         return $this->response($ar,'json',200);
     }
 }
