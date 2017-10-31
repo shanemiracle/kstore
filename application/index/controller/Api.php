@@ -123,10 +123,11 @@ class Api extends Rest
         $table = new tableQuaTreeParam();
 
         try {
-            if (0 != $table->get(1)) {
+            $param = $table->get(1);
+            if(null == $param){
                 $data = ['ret_code' => 1, 'ret_desc' => "数据库获取不到数据"];
             } else {
-                $data = ['ret_code' => 0, 'ret_desc' => '获取成功', 'data' => $table->getAllData()];
+                $data = ['ret_code' => 0, 'ret_desc' => '获取成功', 'data' =>$param[0]];
             }
         } catch (Exception $e) {
             $data = ['ret_code' => -1, 'ret_desc' => $e->getMessage()];
@@ -194,7 +195,7 @@ class Api extends Rest
                 goto Finish;
             }
 
-            $r_data = [['id' => '0-0', 'text' => '质量体系管理系统', 'parent' => '#']];
+            $r_data = [['id' => '0-0', 'text' => '质量体系管理系统', 'parent' => '#','icon'=>'']];
 
             for ($i = 0; $i < count($treeData); $i++) {
                 $node = $treeData[$i];
