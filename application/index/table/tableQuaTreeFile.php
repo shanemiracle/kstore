@@ -25,6 +25,7 @@ class tableQuaTreeFile
     private $address;
     private $depart;
     private $create_user;
+    private $size;
     private $create_time;
 
     private $all_data;
@@ -67,33 +68,33 @@ class tableQuaTreeFile
     }
 
     public function add(){
-        $sql = "INSERT INTO ".$this->tableName." (`id`, `parent_id`, `type`, `self_ver`, `refresh_ver`, `remark`, `address`, `depart`, `create_user`) VALUES (:id, :parent_id, :type, :self_ver, :refresh_ver, :remark, :address, :depart, :create_user);";
+        $sql = "INSERT INTO ".$this->tableName." (`id`, `parent_id`, `type`, `self_ver`, `refresh_ver`, `remark`, `address`, `depart`, `create_user`,`size`) VALUES (:id, :parent_id, :type, :self_ver, :refresh_ver, :remark, :address, :depart, :create_user, :size);";
 
         $data=[];
 
         if($this->parent_id==null){
-            $data['parent_id'] = '';
+            $data['parent_id'] = 0;
         }
         else{
             $data['parent_id'] = $this->parent_id;
         }
 
         if($this->type==null){
-            $data['type'] = '';
+            $data['type'] = 0;
         }
         else{
             $data['type'] = $this->type;
         }
 
         if($this->self_ver==null){
-            $data['self_ver'] = '';
+            $data['self_ver'] = 0;
         }
         else{
             $data['self_ver'] = $this->self_ver;
         }
 
         if($this->refresh_ver==null){
-            $data['refresh_ver'] = '';
+            $data['refresh_ver'] = 0;
         }
         else{
             $data['refresh_ver'] = $this->refresh_ver;
@@ -122,6 +123,13 @@ class tableQuaTreeFile
 
         if($this->create_user==null){
             $data['create_user'] = '';
+        }
+        else{
+            $data['create_user'] = $this->create_user;
+        }
+
+        if($this->size==null){
+            $data['size'] = 0;
         }
         else{
             $data['create_user'] = $this->create_user;
@@ -183,6 +191,11 @@ class tableQuaTreeFile
         if($this->create_user!=null){
             $updateSql .= ',`create_user`=:create_user';
             $updateData['create_user'] = $this->create_user;
+        }
+
+        if($this->size!=null){
+            $updateSql .= ',`size`=:size';
+            $updateData['size'] = $this->size;
         }
 
         if( $updateSql == '' || $id == null) {

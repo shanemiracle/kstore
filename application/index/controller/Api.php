@@ -33,6 +33,37 @@ class Api extends Rest
         return json($data);
     }
 
+    public function apiFileUp()
+    {
+        $data = ['ret_code' => -1, 'ret_desc' => '异常错误'];
+        $file = Request::instance()->file('file');
+        if (null == $file) {
+            $data = ['ret_code' => 1, 'ret_desc' => '缺少file关键字'];
+
+            goto Finish;
+        }
+
+        $info = $file->rule('md5')->move(ROOT_PATH . 'public' . DS . 'file');
+        if ($info) {
+            $size = $info->getSize();
+
+            $filename = $info->getFilename();
+            $fatherPath = $info->getPathInfo()->getBasename();
+
+            $address = '/file/'.$fatherPath.'/'.$filename;
+
+            $data = ['ret_code' => 0, 'ret_desc' => '上传成功', 'address'=>$address];
+        }
+        else{
+            $data = ['ret_code' => 2, 'ret_desc' => '上传失败'];
+        }
+
+        Finish:
+
+        return json($data);
+
+    }
+
 
     public function apiUserAdd()
     {
@@ -124,10 +155,10 @@ class Api extends Rest
 
         try {
             $param = $table->get(1);
-            if(null == $param){
+            if (null == $param) {
                 $data = ['ret_code' => 1, 'ret_desc' => "数据库获取不到数据"];
             } else {
-                $data = ['ret_code' => 0, 'ret_desc' => '获取成功', 'data' =>$param[0]];
+                $data = ['ret_code' => 0, 'ret_desc' => '获取成功', 'data' => $param[0]];
             }
         } catch (Exception $e) {
             $data = ['ret_code' => -1, 'ret_desc' => $e->getMessage()];
@@ -195,7 +226,7 @@ class Api extends Rest
                 goto Finish;
             }
 
-            $r_data = [['id' => '0-0', 'text' => '质量体系管理系统', 'parent' => '#','icon'=>'']];
+            $r_data = [['id' => '0-0', 'text' => '质量体系管理系统', 'parent' => '#', 'icon' => 'icon']];
 
             for ($i = 0; $i < count($treeData); $i++) {
                 $node = $treeData[$i];
