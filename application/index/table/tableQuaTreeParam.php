@@ -60,26 +60,27 @@ class tableQuaTreeParam
         $sql = "SELECT * FROM ".$this->tableName." WHERE id=:id LIMIT 1;";
 
         $data = Db::query($sql,['id' =>$id]);
-        if($data){
-            $this->id = $data[0]['id'];
-            $this->tree_name = $data[0]['tree_name'];
-            $this->is_init = $data[0]['is_init'];
-            $this->sys_one_addr = $data[0]['sys_one_addr'];
-            $this->sys_two_addr = $data[0]['sys_two_addr'];
-            $this->sys_three_addr = $data[0]['sys_three_addr'];
-            $this->record_pre = $data[0]['record_pre'];
-            $this->icon_1 = $data[0]['icon_1'];
-            $this->icon_1_5 = $data[0]['icon_1_5'];
-            $this->icon_2 = $data[0]['icon_2'];
-            $this->icon_3 = $data[0]['icon_3'];
-            $this->icon_rec = $data[0]['icon_rec'];
-
-            $this->all_data = $data;
-
-            return 0;
-        }
-
-        return -1;
+//        if($data){
+//            $this->id = $data[0]['id'];
+//            $this->tree_name = $data[0]['tree_name'];
+//            $this->is_init = $data[0]['is_init'];
+//            $this->sys_one_addr = $data[0]['sys_one_addr'];
+//            $this->sys_two_addr = $data[0]['sys_two_addr'];
+//            $this->sys_three_addr = $data[0]['sys_three_addr'];
+//            $this->record_pre = $data[0]['record_pre'];
+//            $this->icon_1 = $data[0]['icon_1'];
+//            $this->icon_1_5 = $data[0]['icon_1_5'];
+//            $this->icon_2 = $data[0]['icon_2'];
+//            $this->icon_3 = $data[0]['icon_3'];
+//            $this->icon_rec = $data[0]['icon_rec'];
+//
+//            $this->all_data = $data[0];
+//
+//            return 0;
+//        }
+//
+//        return -1;
+        return $data;
     }
 
 
