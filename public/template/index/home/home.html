@@ -1,5 +1,6 @@
 <!DOCTYPE HTML>
 <html>
+
 <head>
     <meta charset="utf-8">
     <meta name="renderer" content="webkit|ie-comp|ie-stand">
@@ -14,11 +15,12 @@
     <!--[if lt IE 9]>
 <link href="static/h-ui/css/H-ui.ie.css" rel="stylesheet" type="text/css" />
 <![endif]-->
-    <link rel="stylesheet" href="../../lib/h-ui/css/H-ui.css">
-    <link rel="stylesheet" type="text/css" href="../../lib/h-ui/lib/Hui-iconfont/1.0.8/iconfont.min.css" />
-    <link rel="stylesheet" href="../../lib/layer/theme/default/layer.css">
-    <link rel="stylesheet" href="../../lib/jstree/themes/default/style.min.css">
-    <link rel="stylesheet" href="../../static/css/main.css">
+    <link rel="stylesheet" href="/template/lib/h-ui/css/H-ui.css">
+    <link rel="stylesheet" type="text/css" href="/template/lib/h-ui/lib/Hui-iconfont/font_file/iconfont.css" />
+    <link rel="stylesheet" type="text/css" href="/template/lib/h-ui/lib/Hui-iconfont/1.0.8/iconfont.min.css" />
+    <link rel="stylesheet" href="/template/lib/layer/theme/default/layer.css">
+    <link rel="stylesheet" href="/template/lib/jstree/themes/default/style.min.css">
+    <link rel="stylesheet" href="/template/static/css/main.css">
     <style type="text/css">
 
     </style>
@@ -28,83 +30,74 @@
 </head>
 
 <body>
-     <div class='header'>
+    <div class='header'>
         <span>智微知库</span>
         <span class='f-r mr-10'>coco</span>
     </div>
     <div class='wrapper clearfix'>
         <div class="sidebars f-l">
-            <div class='filter'>
-               <input type="text" placeholder="按文件名搜索" class="input-text radius size-S">
+            <div class='filter' >
+                <input type="text" placeholder="按文件名搜索" class="input-text radius size-S" id='searchMenu'>
             </div>
-                 <div id="container" class='mt20 '>
-            </div>
-            <div id="container1">
-              <ul>
-                <li data-jstree='{"opened":true}'>Root node
-                  <ul>
-                    <li>Child node 1</li>
-                    <li>Child node 2</li>
-                  </ul>
-                </li>
-              </ul>
+            <div id="container" class='mt20' style='font-size:14px'>
             </div>
         </div>
-
-
         <div class="contents f-l ">
-            <div class="filter clearfix">
-                 <a class="btn btn-primary size-S radius create  href=" javascript:void(0) ">重命名</a>
-                 <a class="btn btn-primary size-S radius create  href=" javascript:void(0) ">上传第一层</a>
-                 <div class="formControls col-xs-4 col-sm-3 f-r">
-                    <input type="text" class="input-text radius" value="" placeholder="按编辑人搜索" id=''>
-                 </div>
+            <div class='random-box'>
+                    <div class="filter clearfix">
+                     <!--    <a class="btn btn-primary size-S radius create"  href=" javascript:void(0) ">重命名</a> -->
+                         <a class="btn btn-primary size-S radius  pop-one" href=" javascript:void(0) ">上传第一层</a>
+                        <div class="formControls col-xs-4 col-sm-3 f-r">
+                            <input type="text" class="input-text radius" value="" placeholder="按编辑人搜索" id=''>
+                        </div>
+                    </div>
+                    <div class="filter clearfix">
+                        <a class="btn btn-primary size-S radius edit-first " href=" javascript:void(0) ">文件更新</a>
+                         <a class="btn btn-primary size-S radius create pop-two" href=" javascript:void(0) ">创建第二层</a>
+                        <div class="formControls col-xs-4 col-sm-3 f-r">
+                            <input type="text" class="input-text radius" value="" placeholder="按编辑人搜索" id=''>
+                        </div>
+                    </div>
+                    <div class="filter clearfix">
+                        <a class="btn btn-primary size-S radius  pop-three href=" javascript:void(0) ">上传文件</a>
+                         <a class="btn btn-primary size-S radius create href=" javascript:void(0) ">上传记录</a>
+                        <div class="formControls col-xs-4 col-sm-3 f-r">
+                            <input type="text" class="input-text radius" value="" placeholder="按编辑人搜索" id=''>
+                        </div>
+                    </div>
+                    <div class="filter clearfix">
+                        <a class="btn btn-primary size-S radius create"  href=" javascript:void(0) ">文件更新</a>
+                         <a class="btn btn-primary size-S radius create" href=" javascript:void(0) ">上传记录</a>
+                        <a class="btn btn-primary size-S radius create pop-four" href=" javascript:void(0) ">创建第四层</a>
+                         <div class="formControls col-xs-4 col-sm-3 f-r ">
+                            <input type="text " class="input-text radius " value=" " placeholder="按编辑人搜索 " id=''>
+                         </div>
+                    </div>
             </div>
-            <div class="filter clearfix">
-                 <a class="btn btn-primary size-S radius create  href=" javascript:void(0) ">文件更新</a>
-                 <a class="btn btn-primary size-S radius create  href=" javascript:void(0) ">创建第二层</a>
-                 <div class="formControls col-xs-4 col-sm-3 f-r">
-                    <input type="text" class="input-text radius" value="" placeholder="按编辑人搜索" id=''>
-                 </div>
-            </div>
-            <div class="filter clearfix">
-                 <a class="btn btn-primary size-S radius create  href=" javascript:void(0) ">上传文件</a>
-                 <a class="btn btn-primary size-S radius create  href=" javascript:void(0) ">上传记录</a>
-                 <div class="formControls col-xs-4 col-sm-3 f-r">
-                    <input type="text" class="input-text radius" value="" placeholder="按编辑人搜索" id=''>
-                 </div>
-            </div>
-            <div class="filter clearfix">
-                 <a class="btn btn-primary size-S radius create  href=" javascript:void(0) ">文件更新</a>
-                 <a class="btn btn-primary size-S radius create  href=" javascript:void(0) ">上传记录</a>
-                 <a class="btn btn-primary size-S radius create  href=" javascript:void(0) ">创建第四层</a>
-                 <div class="formControls col-xs-4 col-sm-3 f-r">
-                    <input type="text" class="input-text radius" value="" placeholder="按编辑人搜索" id=''>
-                 </div>
-            </div>
+            <div class='table-show'>
                 <p class='text-c c-666 f20 mt10 mb10'>文件列表</p>
                 <table class='table f16'>
-                   <thead class="text-c">
+                   <thead class="text-c ">
                     <td>文件名</td>    
                     <td>编辑人</td>    
                     <td>修改时间</td>   
                     <td>文件大小</td>   
                    </thead>
-                   <tr class="text-c c-666">
-                    <td>123.doc</td>
+                   <tr class="text-c c-666 ">
+                    <td><a href="">123.doc</a></td>
                     <td>coco</td>
                     <td>12.11</td>
                     <td>12k</td>
                    </tr>    
                 </table>
+            </div>
+        </div>
+    </div>
 
-             </div>
-     </div>
-
-<script type="text/javascript " src="../../lib/h-ui/lib/jquery/1.9.1/jquery.min.js "></script>
-<script type="text/javascript " src="../../lib/h-ui/js/H-ui.js "></script>
-<script type='text/javascript' src='../../lib/jstree/jstree.min.js'></script>
-<script type='text/javascript' src='../../lib/h-ui/lib/layer/2.4/layer.js'></script>
-<script type='text/javascript' src='../../static/js/index.js'></script>
+<script type="text/javascript " src="/template/lib/h-ui/lib/jquery/1.9.1/jquery.min.js "></script>
+<script type="text/javascript " src="/template/lib/h-ui/js/H-ui.js "></script>
+<script type='text/javascript' src='/template/lib/jstree/jstree.min.js'></script>
+<script type='text/javascript' src='/template/lib/h-ui/lib/layer/2.4/layer.js'></script>
+<script type='text/javascript' src='/template/static/js/index.js'></script>
 </body>
 </html>

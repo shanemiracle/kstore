@@ -1,3 +1,6 @@
+body {
+  overflow: hidden;
+}
 .header {
   background: #4688f1;
   height: 50px;
@@ -12,15 +15,25 @@
   margin-left: 60px;
 }
 .wrapper .sidebars {
-  padding: 20px;
   border: 1px solid #ccc;
   border-top: none;
   height: 600px;
-  min-width: 280px;
-  overflow-y: auto;
+  width: 280px;
+  overflow: auto;
+}
+.wrapper .sidebars .filter {
+  border-bottom: 1px solid #ccc;
+  padding: 15px;
 }
 .wrapper .contents {
-  padding: 20px;
+  height: 600px;
+  width: 938px;
+  overflow: auto;
+}
+.wrapper .contents .random-box .filter {
+  padding: 13px 10px;
+  border-bottom: 1px solid #ccc;
+  display: none;
 }
 html,
 body,
@@ -578,4 +591,22 @@ a.tdl:hover {
 .formwrap {
   width: 80%;
   margin: 0 auto;
+}
+.login-box {
+  position: absolute;
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  background: #ccc;
+  margin: auto;
+  width: 480px;
+  height: 360px;
+}
+.login-box .input-box {
+  width: 70%;
+  margin-bottom: 10px;
+}
+.login-box .login-wrap {
+  margin-top: 120px;
 }
