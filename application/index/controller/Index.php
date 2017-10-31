@@ -12,8 +12,8 @@ class Index
     {
         return "test";
     }
-    public function home()
-    {
-        return "home";
-    }
+    // public function home()
+    // {
+    //     return "home";
+    // }
 }
