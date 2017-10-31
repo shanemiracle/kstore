@@ -273,6 +273,13 @@ class tableQuaTree
         return $data;
     }
 
+    public function nameCheck($level,$cn_name)
+    {
+        $sql = "select id from ".$this->tableName.' where level=:level and cn_name=:cn_name limit 1';
+        $data = Db::query($sql,['level'=>$level,'cn_name'=>$cn_name]);
+        return $data;
+    }
+
 
 
 }

@@ -17,6 +17,7 @@ use app\index\table\tableQuaTreeParam;
 use app\index\table\tableUser;
 use think\controller\Rest;
 use think\Exception;
+use think\Log;
 use think\Request;
 
 class Api extends Rest
@@ -226,7 +227,7 @@ class Api extends Rest
                 goto Finish;
             }
 
-            $r_data = [['id' => '0-0', 'text' => '质量体系管理系统', 'parent' => '#', 'icon' => 'icon']];
+            $r_data = [['id' => '0-0', 'text' => '质量体系管理系统', 'parent' => '#']];
 
             for ($i = 0; $i < count($treeData); $i++) {
                 $node = $treeData[$i];
@@ -247,6 +248,23 @@ class Api extends Rest
     {
         $level = Request::instance()->param('level');
         $cn_name = Request::instance()->param('cn_name');
+
+        $table = new tableQuaTree();
+
+        try{
+            $r_data = $table->nameCheck($level,$cn_name);
+            if( $r_data )
+            {
+                return 'false';
+            }
+        }
+        catch (Exception $e) {
+            Log::alert('apiQuaTreeFileNameCheck '.$e->getMessage());
+        }
+
+        Finish:
+        return 'true';
+
     }
 
     public function apiQuaTree1Update()
@@ -263,6 +281,8 @@ class Api extends Rest
     {
         $start_num = Request::instance()->param('start_num');
         $level_remark = Request::instance()->param('level_remark');
+
+        
     }
 
     public function apiQuaTree1_5Update()
