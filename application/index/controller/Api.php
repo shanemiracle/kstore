@@ -195,12 +195,18 @@ class Api extends Rest
 
         $data = ['ret_code' => -1, 'ret_desc' => '异常失败'];
 
-        $tableQuaTree = new tableQuaTree();
+        $tableQuaTreeF = new tableQuaTree();
+        $tableQuaTreeC = new tableQuaTree();
         $tableQuaTreeFile = new tableQuaTreeFile();
 
         table::startTrans();
 
         try {
+            $parent_id_ar = explode('-',$parent_id);
+            if(2 != count($parent_id_ar)||$parent_id_ar[0]!= '0') {
+                $data = ['ret_code' => 1, 'ret_desc' => '父节点不属于第0层'];
+                goto Finish;
+            }
 
             $suffixAr = explode('.', $address);
             $num = count($suffixAr);
@@ -210,25 +216,32 @@ class Api extends Rest
                 $suffix = $suffixAr[$num - 1];
             }
 
-            $tableQuaTree->setLevel(1);
-            $tableQuaTree->setSeq(0);
-            $tableQuaTree->setLevelRemark($cn_name);
-            $tableQuaTree->setParent($parent_id);
-            $tableQuaTree->setSelfVer(0);
-            $tableQuaTree->setRefreshVer(0);
-            $tableQuaTree->setChildCreateNum(0);
-            $tableQuaTree->setChildRecordCreateNum(0);
-            $tableQuaTree->setCnName($cn_name);
-            $tableQuaTree->setEnName($en_name);
-            $tableQuaTree->setSuffix($suffix);
 
-            if (0 != $tableQuaTree->add()) {
+            if( 0 !=$tableQuaTreeF->getByLvel($parent_id_ar[0],$parent_id_ar[1]) ){
+                $data = ['ret_code' => 3, 'ret_desc' => '父节点获取失败'];
+                table::rollback();
+                goto Finish;
+            }
+
+            $tableQuaTreeC->setLevel(1);
+            $tableQuaTreeC->setSeq($tableQuaTreeF->getSeq()*10+$tableQuaTreeF->getChildCreateNum());
+            $tableQuaTreeC->setLevelRemark($cn_name);
+            $tableQuaTreeC->setParent($parent_id);
+            $tableQuaTreeC->setSelfVer(0);
+            $tableQuaTreeC->setRefreshVer(0);
+            $tableQuaTreeC->setChildCreateNum(0);
+            $tableQuaTreeC->setChildRecordCreateNum(0);
+            $tableQuaTreeC->setCnName($cn_name);
+            $tableQuaTreeC->setEnName($en_name);
+            $tableQuaTreeC->setSuffix($suffix);
+
+            if (0 != $tableQuaTreeC->add()) {
                 $data = ['ret_code' => 1, 'ret_desc' => '添加 qua_tree 失败'];
                 table::rollback();
                 goto Finish;
             }
 
-            $tableQuaTreeFile->setParentId($tableQuaTree->getId());
+            $tableQuaTreeFile->setParentId(intval($tableQuaTreeC->getId()));
             $tableQuaTreeFile->setType(1);
             $tableQuaTreeFile->setSelfVer(0);
             $tableQuaTreeFile->setRefreshVer(0);
@@ -243,6 +256,14 @@ class Api extends Rest
                 table::rollback();
                 goto Finish;
             }
+
+            $tableQuaTreeF->setChildCreateNum($tableQuaTreeF->getChildCreateNum()+1);
+            if( 0 != $tableQuaTreeF->update($tableQuaTreeF->getId()) ){
+                $data = ['ret_code' => 4, 'ret_desc' => '父节点修改child_num失败'];
+                table::rollback();
+                goto Finish;
+            }
+
             $data = ['ret_code' => 0, 'ret_desc' => '添加成功'];
 
             table::commit();
