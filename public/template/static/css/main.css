@@ -18,7 +18,7 @@ body {
   border: 1px solid #ccc;
   border-top: none;
   height: 600px;
-  width: 280px;
+  width: 500px;
   overflow: auto;
 }
 .wrapper .sidebars .filter {

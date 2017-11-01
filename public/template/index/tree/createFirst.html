@@ -1,0 +1,194 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="renderer" content="webkit|ie-comp|ie-stand">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+    <meta http-equiv="Cache-Control" content="no-siteapp" />
+        <!--[if lt IE 9]>
+    <script type="text/javascript" src="lib/html5shiv.js"></script>
+    <script type="text/javascript" src="lib/respond.min.js"></script>
+    <![endif]-->
+        <!-- <link rel="stylesheet" type="text/css" href="../lib/h-ui/css/H-ui.css" /> -->
+        <!--[if lt IE 9]>
+    <link href="static/h-ui/css/H-ui.ie.css" rel="stylesheet" type="text/css" />
+    <![endif]-->
+    <link rel="stylesheet" href="/template/lib/h-ui/css/H-ui.css">
+    <link rel="stylesheet" type="text/css" href="/template/lib/h-ui/lib/Hui-iconfont/1.0.8/iconfont.min.css" />
+<!--     <link rel="stylesheet" href="../lib/layer/theme/default/layer.css">
+ -->
+    <link rel="stylesheet" href="/template/lib/jstree/themes/default/style.min.css">
+    <link rel="stylesheet" href="/template/lib/fileUpload/css/iconfont.css" rel="stylesheet" type="text/css"/>
+    <link href="/template/lib/fileUpload/css/fileUpload.css">
+    <link rel="stylesheet" href="/template/static/css/main.css">
+    <style type="text/css">
+
+    </style>
+    <title></title>
+    <meta name="keywords" content="智微信科">
+    <meta name="description" content="智微信科知识库！">
+</head>
+
+<body>
+    <div class="formwrap ">
+        <form action="" method="post" class="form form-horizontal" id="form_creat">
+            <div class="row clearfix">
+                <label class="form-label col-xs-3 col-sm-4"><span class="c-red">*</span>中文名：</label>
+                <div class="formControls col-xs-7 col-sm-6">
+                    <input type="text" class="input-text radius"  id='cn_name'value="" placeholder="请输入文件中文名" id="contact" required name="contact" maxlength="18">
+                </div>
+            </div>
+            <div class="row clearfix">
+                <label class="form-label col-xs-3 col-sm-4"><span class="c-red">*</span>英文名：</label>
+                <div class="formControls col-xs-7 col-sm-6">
+                    <input type="text" class="input-text radius" value="" placeholder="请输入文件英文名" id='en_name' required name="contact" maxlength="18">
+                </div>
+            </div>
+            <div class="row clearfix ">
+                <label class="form-label col-xs-3 col-sm-4 "><span class="c-red">*</span>相关描述：</label>
+                <div class="formControls col-xs-7 col-sm-6">
+                    <textarea name="" id="file_descripe" cols="40" rows="10" placeholder="关于文件的描述" class='textarea'></textarea>
+                </div>
+            </div>
+            <div class="row clearfix ">
+                <label class="form-label col-xs-3 col-sm-4 "><span class="c-red">*</span>所属部门：</label>
+                <div class="formControls col-xs-7 col-sm-6">
+                    <span class="select-box">
+                      <select class="select" size="1" >
+                      </select>
+                </span>
+                </div>
+            </div>
+            <div class=" row clearfix text-c  ">
+                <label class="form-label col-xs-3 col-sm-4 "><span class="c-red">*</span>附件上传：</label>
+                <div class="formControls col-xs-7 col-sm-6">
+                     <div id="fileUploadContent" class="fileUploadContent">
+                         
+                     </div>
+                </div>
+    </div>
+    <div class="row clearfix text-c ">
+        <div class="mt-20">
+            <input class="btn btn-primary radius submit-info " type="button" value="&nbsp;&nbsp;提交&nbsp;&nbsp;">
+        </div>
+    </div>
+    </form>
+    </div>
+    <script type="text/javascript" src="/template/lib/h-ui/lib/jquery/1.9.1/jquery.min.js"></script>
+    <script type="text/javascript" src="/template/lib/h-ui/js/H-ui.js"></script>
+    <script type='text/javascript' src='/template/lib/hui/lib/jquery.validation/1.14.0/jquery.validate.js'></script>
+    <script type='text/javascript' src='/template/lib/hui/lib/jquery.validation/1.14.0/validate-methods.js'></script>
+    <script type='text/javascript' src='/template/lib/h-ui/lib/layer/2.4/layer.js'></script>
+    <script type="text/javascript" src="/template/lib/fileUpload/js/fileUpload.js"></script>
+
+
+   <script type='text/javascript'>
+    $(function(){
+        //渲染部门数据
+        var str = ''
+        $.post('/api/apiQuaDepartGet', function(res){
+            if (res.ret_code == 0) {
+                var retData = res.data,
+                    len = retData.length;
+                for (i = 0; i < len; i++) {
+                    str += '<option>' + retData[i].depart_name + '</option>'
+                }
+                $('.select-box .select').html(str);
+            } else {
+                layer.msg(res.ret_desc);
+            }
+        })
+
+        //文件上传
+     $("#fileUploadContent").initUpload({
+        "uploadUrl":"/api/apiFileUp",//上传文件信息地址
+        //"size":350,//文件大小限制，单位kb,默认不限制
+        //"maxFileNumber":3,//文件个数限制，为整数
+        //"filelSavePath":"",//文件上传地址，后台设置的根目录
+        "beforeUpload":beforeUploadFun,//在上传前执行的函数
+        //"onUpload":onUploadFun，//在上传后执行的函数
+        //autoCommit:true,//文件是否自动上传
+        "fileType":['xlsx','png','jpg','docx','doc']//文件类型限制，默认不限制，注意写的是文件后缀
+    })
+
+    //表单提交submit 
+    $('.submit-info').on('click',function(){
+
+           var departValue= $('.select-box option:selected').text();
+           var datas= {
+                en_name: $('#en_name').val(),
+                cn_name: $('#cn_name').val(),
+                remark: $('#file_descripe').val(),
+                depart: departValue,
+                create_user:'coco' 
+            }
+            if(checkForm.valid()){
+                $.post('/api/apiQuaTree1Add',  datas, function(res){
+
+                   if(res.ret_code == 0){
+                         layer.msg('提交成功')
+                   }else{
+                     layer.msg(res.ret_desc);
+                   }
+                })
+            } 
+          
+    })
+
+        
+
+
+
+
+ 
+
+
+
+
+
+
+
+
+
+
+
+
+
+    });
+    var  checkForm=$('#form_creat');
+    checkForm.validate({
+        rules:{
+
+        },
+        messages{
+
+        }
+    })
+
+    function beforeUploadFun(opt){
+
+        opt.otherData =[{"name":"name","value":"zxm"}];
+
+    }
+    function onUploadFun(opt,data){
+
+        alert(data);
+        uploadTools.uploadError(opt);//显示上传错误
+        uploadTools.uploadSuccess(opt);//显示上传成功
+    }
+    
+    
+    function testUpload(){
+
+        var opt = uploadTools.getOpt("fileUploadContent");
+        uploadEvent.uploadFileEvent(opt);
+    }
+
+    </script>
+    <!-- <script type='text/javascript' src='../static/js/all.js'></script>
+ -->
+</body>
+
+</html>

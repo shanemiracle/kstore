@@ -1,24 +1,23 @@
 <?php
 namespace app\index\controller;
 
-class Create
+class Tree
 {
     public function index()
     {
-      return view('create/createFirst');
+      return view('tree/createFirst');
     }
     public function editfirst()
     {
-      return view('create/editFirst');
+      return view('tree/editFirst');
     }
     public function popsecond(){
-      return view('create/createSecond');
+      return view('tree/createSecond');
     } 
     public function popthird(){
-      return view('create/createThird');
+      return view('tree/createThird');
     }
     public function popfourth(){
-      return view('create/createFourth');
+      return view('tree/createFourth');
     }
 }
-

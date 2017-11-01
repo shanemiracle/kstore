@@ -16,6 +16,9 @@ $(function() {
         $('#container').jstree({
             'core': {
                 'data': res.data
+                // 'themes':{
+                //     icons:false
+                // }
             },
             // types:{
             //     "default" : {
@@ -24,7 +27,10 @@ $(function() {
             // },
             // "state": { "key": "state_demo" },
             "plugins": ["sort", "state", "search", 'wholerow', "types"]
-        })
+        });
+
+        // $('#container').jstree.hide_icons();
+
     })
     //确定哪一层被选中
     // $('#container').on("changed.jstree", function(e, data) {
@@ -56,7 +62,7 @@ $(function() {
             type: 2,
             title: '创建第一层',
             area: ['700px', '480px'],
-            content: '/create/index'
+            content: '/tree/index'
 
         });
     })
@@ -65,7 +71,7 @@ $(function() {
             type: 2,
             title: '编辑第一层',
             area: ['480px', '320px'],
-            content: '/create/editfirst'
+            content: '/tree/editfirst'
 
         });
     })
@@ -74,7 +80,7 @@ $(function() {
             type: 2,
             title: '创建页面',
             area: ['700px', '480px'],
-            content: '/create/popsecond'
+            content: '/tree/popsecond'
 
         });
     })
@@ -83,7 +89,7 @@ $(function() {
             type: 2,
             title: '创建页面',
             area: ['700px', '420px'],
-            content: '/create/popthird'
+            content: '/tree/popthird'
 
         });
     })
@@ -92,7 +98,7 @@ $(function() {
             type: 2,
             title: '创建页面',
             area: ['700px', '420px'],
-            content: '/create/popfourth'
+            content: '/tree/popfourth'
 
         });
     })
