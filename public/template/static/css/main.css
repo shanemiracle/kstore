@@ -27,7 +27,7 @@ body {
 }
 .wrapper .contents {
   height: 600px;
-  width: 938px;
+  width: 715px;
   overflow: auto;
 }
 .wrapper .contents .random-box .filter {
