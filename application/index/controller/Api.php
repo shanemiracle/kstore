@@ -319,10 +319,16 @@ class Api extends Rest
 
             for ($i = 0; $i < count($treeData); $i++) {
                 $node = $treeData[$i];
+                if(2 == $node['level']){
+                    $text = sprintf("%s %s %s", $this->treeLevelAddr($node['level'], $param[0]),intval($node['child_create_num']/100)*100,$node['level_remark']);
+                }
+                else{
+                    $text = sprintf("%s %s", $this->treeLevelAddr($node['level'], $param[0]), $node['level_remark']);
+                }
 
                 array_push($r_data, [
                     'id' => sprintf("%d-%d", $node['level'], $node['seq']),
-                    'text' => sprintf("%s %s", $this->treeLevelAddr($node['level'], $param[0]), $node['level_remark']),
+                    'text' => $text,
                     'parent' => $node['parent'], 'icon'=>$this->treeIconAddr($node['level'], $param[0])
 
                     ]
@@ -373,10 +379,66 @@ class Api extends Rest
 
     public function apiQuaTree1_5Add()
     {
+        $parent_id = Request::instance()->param('parent_id');
         $start_num = Request::instance()->param('start_num');
         $level_remark = Request::instance()->param('level_remark');
 
+        $data = ['ret_code' => -1, 'ret_desc' => '异常失败'];
 
+        $tableQuaTreeF = new tableQuaTree();
+        $tableQuaTreeC = new tableQuaTree();
+
+        table::startTrans();
+
+        try {
+            $parent_id_ar = explode('-',$parent_id);
+            if(2 != count($parent_id_ar)||$parent_id_ar[0]!= '1') {
+                $data = ['ret_code' => 1, 'ret_desc' => '父节点不属于第一层'];
+                goto Finish;
+            }
+
+            if( 0 !=$tableQuaTreeF->getByLvel($parent_id_ar[0],$parent_id_ar[1]) ){
+                $data = ['ret_code' => 3, 'ret_desc' => '父节点获取失败'];
+                table::rollback();
+                goto Finish;
+            }
+
+            $tableQuaTreeC->setLevel(2);
+            $tableQuaTreeC->setSeq($tableQuaTreeF->getChildCreateNum());
+            $tableQuaTreeC->setLevelRemark($level_remark);
+            $tableQuaTreeC->setParent($parent_id);
+            $tableQuaTreeC->setSelfVer(0);
+            $tableQuaTreeC->setRefreshVer(0);
+            $tableQuaTreeC->setChildCreateNum($start_num);
+            $tableQuaTreeC->setChildRecordCreateNum(0);
+            $tableQuaTreeC->setCnName($level_remark);
+            $tableQuaTreeC->setEnName('');
+            $tableQuaTreeC->setSuffix('');
+
+            if( 0 != $tableQuaTreeC->add() ){
+                $data = ['ret_code' => 2, 'ret_desc' => '添加子节点失败'];
+                table::rollback();
+                goto Finish;
+            }
+
+
+
+            $tableQuaTreeF->setChildCreateNum($tableQuaTreeF->getChildCreateNum()+1);
+            if( 0 != $tableQuaTreeF->update($tableQuaTreeF->getId()) ){
+                $data = ['ret_code' => 4, 'ret_desc' => '父节点修改child_num失败'];
+                table::rollback();
+                goto Finish;
+            }
+
+            table::commit();
+            $data = ['ret_code' => 0, 'ret_desc' => '成功'];
+
+        }catch (Exception $e) {
+            $data = ['ret_code' => -1, 'ret_desc' => $e->getMessage()];
+        }
+
+        Finish:
+        return json($data);
     }
 
     public function apiQuaTree1_5Update()

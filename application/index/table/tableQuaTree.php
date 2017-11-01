@@ -76,6 +76,37 @@ class tableQuaTree
 //        return -1;
     }
 
+    public function getByLvel($level,$seq)
+    {
+        $sql = "select * from ".$this->tableName." where level=:level and seq=:seq LIMIT 1;";
+
+        $data = Db::query($sql,['level' =>$level,'seq'=>$seq]);
+
+//        return $data;
+        if($data){
+            $this->id = $data[0]['id'];
+            $this->level = $data[0]['level'];
+            $this->seq = $data[0]['seq'];
+            $this->level_addr = $data[0]['level_addr'];
+            $this->level_remark = $data[0]['level_remark'];
+            $this->parent = $data[0]['parent'];
+            $this->self_ver = $data[0]['self_ver'];
+            $this->refresh_ver = $data[0]['refresh_ver'];
+            $this->child_create_num = $data[0]['child_create_num'];
+            $this->child_record_create_num = $data[0]['child_record_create_num'];
+            $this->cn_name = $data[0]['cn_name'];
+            $this->en_name = $data[0]['en_name'];
+            $this->suffix = $data[0]['suffix'];
+            $this->create_time = $data[0]['create_time'];
+
+            $this->all_data = $data[0];
+
+            return 0;
+        }
+//
+        return -1;
+    }
+
     public function add(){
         $sql = "INSERT INTO ".$this->tableName." (`id`, `level`, `seq`, `level_addr`, `level_remark`, `parent`, `self_ver`, `refresh_ver`, `child_create_num`, `child_record_create_num`, `cn_name`, `en_name`, `suffix`) VALUES (:id, :level, :seq, :level_addr, :level_remark, :parent, :self_ver, :refresh_ver, :child_create_num, :child_record_create_num, :cn_name, :en_name, :suffix);";
 
@@ -256,7 +287,7 @@ class tableQuaTree
         $ret = Db::execute($sql,$updateData);
 //        Log::info("ret".$ret);
 
-        return $ret;
+        return !($ret == 1);
     }
 
 
