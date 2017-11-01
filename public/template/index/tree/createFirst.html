@@ -78,8 +78,9 @@
     </div>
     <script type="text/javascript" src="/template/lib/h-ui/lib/jquery/1.9.1/jquery.min.js"></script>
     <script type="text/javascript" src="/template/lib/h-ui/js/H-ui.js"></script>
-    <script type='text/javascript' src='/template/lib/hui/lib/jquery.validation/1.14.0/jquery.validate.js'></script>
-    <script type='text/javascript' src='/template/lib/hui/lib/jquery.validation/1.14.0/validate-methods.js'></script>
+    <script type='text/javascript' src='/template/lib/h-ui/lib/jquery.validation/1.14.0/jquery.validate.js'>
+    </script>
+<!--     <script type='text/javascript' src='/template/lib/h-ui/lib/jquery.validation/1.14.0/validate-methods.js'></script> -->
     <script type='text/javascript' src='/template/lib/h-ui/lib/layer/2.4/layer.js'></script>
     <script type="text/javascript" src="/template/lib/fileUpload/js/fileUpload.js"></script>
 
@@ -115,9 +116,10 @@
 
     //表单提交submit 
     $('.submit-info').on('click',function(){
-
+           var parentId =getURLParameter('parent_id');
            var departValue= $('.select-box option:selected').text();
            var datas= {
+                parent_id: parentId,
                 en_name: $('#en_name').val(),
                 cn_name: $('#cn_name').val(),
                 remark: $('#file_descripe').val(),
@@ -162,7 +164,7 @@
         rules:{
 
         },
-        messages{
+        messages:{
 
         }
     })
@@ -185,6 +187,10 @@
         var opt = uploadTools.getOpt("fileUploadContent");
         uploadEvent.uploadFileEvent(opt);
     }
+
+    function getURLParameter(name) {
+    return decodeURIComponent((new RegExp('[?|&]' + name + '=' + '([^&;]+?)(&|#|;|$)').exec(location.search)||[,""])[1].replace(/\+/g, '%20'))||null;
+}
 
     </script>
     <!-- <script type='text/javascript' src='../static/js/all.js'></script>

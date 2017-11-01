@@ -49,23 +49,33 @@ $(function() {
 
     $('#container').on('select_node.jstree', function(e, data) {
         // console.log(data);
-        console.log(data.selected);
+        // console.log(data.selected);
+         var parent_id=data.selected;
           var selectedeep = (data.selected[0]);
         var deep = selectedeep.substring(0, 1);
         $('.contents .filter').eq(deep).show().siblings().hide();
-
-
-    })
-
-    $('.pop-one').on('click', function() {
+        $('.pop-one').on('click', function() {
         var index = layer.open({
             type: 2,
             title: '创建第一层',
             area: ['700px', '480px'],
-            content: '/tree/index'
+            content: '/tree/index?parent_id=' + parent_id
 
         });
     })
+
+
+    })
+
+    // $('.pop-one').on('click', function() {
+    //     var index = layer.open({
+    //         type: 2,
+    //         title: '创建第一层',
+    //         area: ['700px', '480px'],
+    //         content: '/tree/index?parent_id=' + parent_id
+
+    //     });
+    // })
     $('.edit-first').on('click', function() {
         var index = layer.open({
             type: 2,
