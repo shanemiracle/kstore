@@ -220,4 +220,182 @@ class tableQuaTreeFile
 
     }
 
+    /**
+     * @return mixed
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * @param mixed $id
+     */
+    public function setId($id)
+    {
+        $this->id = $id;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getParentId()
+    {
+        return $this->parent_id;
+    }
+
+    /**
+     * @param mixed $parent_id
+     */
+    public function setParentId($parent_id)
+    {
+        $this->parent_id = $parent_id;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getType()
+    {
+        return $this->type;
+    }
+
+    /**
+     * @param mixed $type
+     */
+    public function setType($type)
+    {
+        $this->type = $type;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getSelfVer()
+    {
+        return $this->self_ver;
+    }
+
+    /**
+     * @param mixed $self_ver
+     */
+    public function setSelfVer($self_ver)
+    {
+        $this->self_ver = $self_ver;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getRefreshVer()
+    {
+        return $this->refresh_ver;
+    }
+
+    /**
+     * @param mixed $refresh_ver
+     */
+    public function setRefreshVer($refresh_ver)
+    {
+        $this->refresh_ver = $refresh_ver;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getRemark()
+    {
+        return $this->remark;
+    }
+
+    /**
+     * @param mixed $remark
+     */
+    public function setRemark($remark)
+    {
+        $this->remark = $remark;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getAddress()
+    {
+        return $this->address;
+    }
+
+    /**
+     * @param mixed $address
+     */
+    public function setAddress($address)
+    {
+        $this->address = $address;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getDepart()
+    {
+        return $this->depart;
+    }
+
+    /**
+     * @param mixed $depart
+     */
+    public function setDepart($depart)
+    {
+        $this->depart = $depart;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getCreateUser()
+    {
+        return $this->create_user;
+    }
+
+    /**
+     * @param mixed $create_user
+     */
+    public function setCreateUser($create_user)
+    {
+        $this->create_user = $create_user;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getSize()
+    {
+        return $this->size;
+    }
+
+    /**
+     * @param mixed $size
+     */
+    public function setSize($size)
+    {
+        $this->size = $size;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getCreateTime()
+    {
+        return $this->create_time;
+    }
+
+    /**
+     * @param mixed $create_time
+     */
+    public function setCreateTime($create_time)
+    {
+        $this->create_time = $create_time;
+    }
+
+
+
 }

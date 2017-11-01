@@ -36,13 +36,13 @@ class tableQuaTreeParam
      */
     public function __construct()
     {
-        if(tableQuaTreeParam::$s_id == 0 ) {
-            $sql = "select max(id) as id from ".$this->tableName;
-            $data = Db::query($sql);
-            if($data){
-                tableQuaTreeParam::$s_id = $data[0]['id'];
-            }
-        }
+//        if(tableQuaTreeParam::$s_id == 0 ) {
+//            $sql = "select max(id) as id from ".$this->tableName;
+//            $data = Db::query($sql);
+//            if($data){
+//                tableQuaTreeParam::$s_id = $data[0]['id'];
+//            }
+//        }
     }
     public function add()
     {

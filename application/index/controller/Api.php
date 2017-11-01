@@ -51,11 +51,10 @@ class Api extends Rest
             $filename = $info->getFilename();
             $fatherPath = $info->getPathInfo()->getBasename();
 
-            $address = '/file/'.$fatherPath.'/'.$filename;
+            $address = '/file/' . $fatherPath . '/' . $filename;
 
-            $data = ['ret_code' => 0, 'ret_desc' => '上传成功', 'address'=>$address];
-        }
-        else{
+            $data = ['ret_code' => 0, 'ret_desc' => '上传成功', 'address' => $address, 'size' => $size];
+        } else {
             $data = ['ret_code' => 2, 'ret_desc' => '上传失败'];
         }
 
@@ -188,25 +187,113 @@ class Api extends Rest
         $parent_id = Request::instance()->param('parent_id');
         $cn_name = Request::instance()->param('cn_name');
         $en_name = Request::instance()->param('en_name');
-        $suffix = Request::instance()->param('suffix');
+        $address = Request::instance()->param('address');
         $remark = Request::instance()->param('remark');
+        $depart = Request::instance()->param('depart');
+        $size = Request::instance()->param('size');
         $create_user = Request::instance()->param('create_user');
 
-        $tableParam = new tableQuaTreeParam();
+        $data = ['ret_code' => -1, 'ret_desc' => '异常失败'];
+
         $tableQuaTree = new tableQuaTree();
         $tableQuaTreeFile = new tableQuaTreeFile();
 
-        try {
-            $param = $tableParam->get(1);
-//            if()
+        table::startTrans();
 
+        try {
+
+            $suffixAr = explode('.', $address);
+            $num = count($suffixAr);
+            if ($num <= 1) {
+                $suffix = '';
+            } else {
+                $suffix = $suffixAr[$num - 1];
+            }
+
+            $tableQuaTree->setLevel(1);
+            $tableQuaTree->setSeq(0);
+            $tableQuaTree->setLevelRemark($cn_name);
+            $tableQuaTree->setParent($parent_id);
+            $tableQuaTree->setSelfVer(0);
+            $tableQuaTree->setRefreshVer(0);
+            $tableQuaTree->setChildCreateNum(0);
+            $tableQuaTree->setChildRecordCreateNum(0);
+            $tableQuaTree->setCnName($cn_name);
+            $tableQuaTree->setEnName($en_name);
+            $tableQuaTree->setSuffix($suffix);
+
+            if (0 != $tableQuaTree->add()) {
+                $data = ['ret_code' => 1, 'ret_desc' => '添加 qua_tree 失败'];
+                table::rollback();
+                goto Finish;
+            }
+
+            $tableQuaTreeFile->setParentId($tableQuaTree->getId());
+            $tableQuaTreeFile->setType(1);
+            $tableQuaTreeFile->setSelfVer(0);
+            $tableQuaTreeFile->setRefreshVer(0);
+            $tableQuaTreeFile->setRemark($remark);
+            $tableQuaTreeFile->setAddress($address);
+            $tableQuaTreeFile->setDepart($depart);
+            $tableQuaTreeFile->setCreateUser($create_user);
+            $tableQuaTreeFile->setSize($size);
+
+            if (0 != $tableQuaTreeFile->add()) {
+                $data = ['ret_code' => 2, 'ret_desc' => '添加 qua_tree_file 失败'];
+                table::rollback();
+                goto Finish;
+            }
+            $data = ['ret_code' => 0, 'ret_desc' => '添加成功'];
+
+            table::commit();
         } catch (Exception $e) {
+
+            table::rollback();
             $data = ['ret_code' => -1, 'ret_desc' => $e->getMessage()];
         }
 
         Finish:
         return json($data);
     }
+
+    private function treeLevelAddr($level, $tableData)
+    {
+
+        if (1 == $level) {
+            return $tableData['sys_one_addr'];
+        } else if (2 == $level || 3 == $level) {
+            return $tableData['sys_two_addr'];
+        } else if (4 == $level) {
+            return $tableData['sys_three_addr'];
+        } else if (5 == $level) {
+            return sprintf("%s-%s", $tableData['record_pre'], $tableData['sys_one_addr']);
+        } else if (6 == $level) {
+            return sprintf("%s-%s", $tableData['record_pre'], $tableData['sys_two_addr']);
+        } else if (7 == $level) {
+            return sprintf("%s-%s", $tableData['record_pre'], $tableData['sys_three_addr']);
+        }
+
+        return '';
+    }
+
+    private function treeIconAddr($level, $tableData)
+    {
+
+        if (1 == $level) {
+            return $tableData['icon_1'];
+        } else if (2 == $level) {
+            return $tableData['icon_1_5'];
+        } else if (3 == $level) {
+            return $tableData['icon_2'];
+        } else if (4 == $level) {
+            return $tableData['icon_3'];
+        } else if (5 == $level || 6 == $level || 7 == $level) {
+            return $tableData['icon_rec'];
+        }
+
+        return '';
+    }
+
 
     public function apiQuaTreeListGet()
     {
@@ -227,10 +314,19 @@ class Api extends Rest
                 goto Finish;
             }
 
-            $r_data = [['id' => '0-0', 'text' => '质量体系管理系统', 'parent' => '#']];
+//            $r_data = [['id' => '0-0', 'text' => '质量体系管理系统', 'parent' => '#']];
+            $r_data = [];
 
             for ($i = 0; $i < count($treeData); $i++) {
                 $node = $treeData[$i];
+
+                array_push($r_data, [
+                    'id' => sprintf("%d-%d", $node['level'], $node['seq']),
+                    'text' => sprintf("%s %s", $this->treeLevelAddr($node['level'], $param[0]), $node['level_remark']),
+                    'parent' => $node['parent'], 'icon'=>$this->treeIconAddr($node['level'], $param[0])
+
+                    ]
+                );
 
                 //#####
             }
@@ -251,15 +347,13 @@ class Api extends Rest
 
         $table = new tableQuaTree();
 
-        try{
-            $r_data = $table->nameCheck($level,$cn_name);
-            if( $r_data )
-            {
+        try {
+            $r_data = $table->nameCheck($level, $cn_name);
+            if ($r_data) {
                 return 'false';
             }
-        }
-        catch (Exception $e) {
-            Log::alert('apiQuaTreeFileNameCheck '.$e->getMessage());
+        } catch (Exception $e) {
+            Log::alert('apiQuaTreeFileNameCheck ' . $e->getMessage());
         }
 
         Finish:
@@ -282,7 +376,7 @@ class Api extends Rest
         $start_num = Request::instance()->param('start_num');
         $level_remark = Request::instance()->param('level_remark');
 
-        
+
     }
 
     public function apiQuaTree1_5Update()

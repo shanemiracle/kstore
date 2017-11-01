@@ -82,14 +82,14 @@ class tableQuaTree
         $data=[];
 
         if($this->level==null){
-            $data['level'] = '';
+            $data['level'] = 0;
         }
         else{
             $data['level'] = $this->level;
         }
 
         if($this->seq==null){
-            $data['seq'] = '';
+            $data['seq'] = 0;
         }
         else{
             $data['seq'] = $this->seq;
@@ -117,28 +117,28 @@ class tableQuaTree
         }
 
         if($this->self_ver==null){
-            $data['self_ver'] = '';
+            $data['self_ver'] = 0;
         }
         else{
             $data['self_ver'] = $this->self_ver;
         }
 
         if($this->refresh_ver==null){
-            $data['refresh_ver'] = '';
+            $data['refresh_ver'] = 0;
         }
         else{
             $data['refresh_ver'] = $this->refresh_ver;
         }
 
         if($this->child_create_num==null){
-            $data['child_create_num'] = '';
+            $data['child_create_num'] = 0;
         }
         else{
             $data['child_create_num'] = $this->child_create_num;
         }
 
         if($this->child_record_create_num==null){
-            $data['child_record_create_num'] = '';
+            $data['child_record_create_num'] = 0;
         }
         else{
             $data['child_record_create_num'] = $this->child_record_create_num;
@@ -278,6 +278,230 @@ class tableQuaTree
         $sql = "select id from ".$this->tableName.' where level=:level and cn_name=:cn_name limit 1';
         $data = Db::query($sql,['level'=>$level,'cn_name'=>$cn_name]);
         return $data;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * @param mixed $id
+     */
+    public function setId($id)
+    {
+        $this->id = $id;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getLevel()
+    {
+        return $this->level;
+    }
+
+    /**
+     * @param mixed $level
+     */
+    public function setLevel($level)
+    {
+        $this->level = $level;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getSeq()
+    {
+        return $this->seq;
+    }
+
+    /**
+     * @param mixed $seq
+     */
+    public function setSeq($seq)
+    {
+        $this->seq = $seq;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getLevelAddr()
+    {
+        return $this->level_addr;
+    }
+
+    /**
+     * @param mixed $level_addr
+     */
+    public function setLevelAddr($level_addr)
+    {
+        $this->level_addr = $level_addr;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getLevelRemark()
+    {
+        return $this->level_remark;
+    }
+
+    /**
+     * @param mixed $level_remark
+     */
+    public function setLevelRemark($level_remark)
+    {
+        $this->level_remark = $level_remark;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getParent()
+    {
+        return $this->parent;
+    }
+
+    /**
+     * @param mixed $parent
+     */
+    public function setParent($parent)
+    {
+        $this->parent = $parent;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getSelfVer()
+    {
+        return $this->self_ver;
+    }
+
+    /**
+     * @param mixed $self_ver
+     */
+    public function setSelfVer($self_ver)
+    {
+        $this->self_ver = $self_ver;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getRefreshVer()
+    {
+        return $this->refresh_ver;
+    }
+
+    /**
+     * @param mixed $refresh_ver
+     */
+    public function setRefreshVer($refresh_ver)
+    {
+        $this->refresh_ver = $refresh_ver;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getChildCreateNum()
+    {
+        return $this->child_create_num;
+    }
+
+    /**
+     * @param mixed $child_create_num
+     */
+    public function setChildCreateNum($child_create_num)
+    {
+        $this->child_create_num = $child_create_num;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getChildRecordCreateNum()
+    {
+        return $this->child_record_create_num;
+    }
+
+    /**
+     * @param mixed $child_record_create_num
+     */
+    public function setChildRecordCreateNum($child_record_create_num)
+    {
+        $this->child_record_create_num = $child_record_create_num;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getCnName()
+    {
+        return $this->cn_name;
+    }
+
+    /**
+     * @param mixed $cn_name
+     */
+    public function setCnName($cn_name)
+    {
+        $this->cn_name = $cn_name;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getEnName()
+    {
+        return $this->en_name;
+    }
+
+    /**
+     * @param mixed $en_name
+     */
+    public function setEnName($en_name)
+    {
+        $this->en_name = $en_name;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getSuffix()
+    {
+        return $this->suffix;
+    }
+
+    /**
+     * @param mixed $suffix
+     */
+    public function setSuffix($suffix)
+    {
+        $this->suffix = $suffix;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getCreateTime()
+    {
+        return $this->create_time;
+    }
+
+    /**
+     * @param mixed $create_time
+     */
+    public function setCreateTime($create_time)
+    {
+        $this->create_time = $create_time;
     }
 
 
