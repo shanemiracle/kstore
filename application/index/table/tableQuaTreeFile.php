@@ -10,6 +10,7 @@ namespace app\index\table;
 
 
 use think\Db;
+use think\Log;
 
 class tableQuaTreeFile
 {
@@ -32,7 +33,7 @@ class tableQuaTreeFile
 
     public function __construct()
     {
-        if(tableQuaTree::$s_id == 0 ) {
+        if(tableQuaTreeFile::$s_id == 0 ) {
             $sql = "select max(id) as id from ".$this->tableName;
             $data = Db::query($sql);
             if($data){
@@ -132,10 +133,14 @@ class tableQuaTreeFile
             $data['size'] = 0;
         }
         else{
-            $data['create_user'] = $this->create_user;
+            $data['size'] = $this->size;
         }
 
         $data['id'] =(tableQuaTreeFile::$s_id+1);
+
+        Log::info($sql);
+        Log::info($data);
+        Log::info(tableQuaTreeFile::$s_id);
         $ret = Db::execute($sql,$data);
         if($ret == 1 )
         {
