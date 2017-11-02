@@ -55,6 +55,7 @@ var uploadTools = {
             },
             "onUpload":function(){//在上传之后
                 //alert("hellos");
+
             }
 
         };
@@ -131,7 +132,7 @@ var uploadTools = {
             }
         }
         var modelStr="";
-        modelStr+="<div class='fileItem'  fileCodeId='"+fileCodeId+"'>";
+        modelStr+="<div class='fileItem pd-10 bgc'  fileCodeId='"+fileCodeId+"'>";
         modelStr+="<div class='imgShow'>";
         modelStr+=showTypeStr;
         modelStr+=" </div>";
@@ -152,27 +153,29 @@ var uploadTools = {
         var uploadId = opt.uploadId;
         //选择文件和上传按钮模板
         var btsStr = "";
-        btsStr += "<div class='uploadBts'>";
+        btsStr += "<div class='uploadBts clearfix'>";
         btsStr += "<div>";
-        btsStr += "<div class='selectFileBt'>选择文件</div>";
+        btsStr += "<div class='selectFileBt btn btn btn-primary size-MINI radius f-l'>选择文件</div>";
         btsStr += "</div>";
         //上传按钮
         if(!opt.isHiddenUploadBt){
-            btsStr += "<div class='uploadFileBt'>";
-            btsStr += "<i class='iconfont icon-shangchuan'></i>";
+            btsStr += "<div class='uploadFileBt f-l'>";
+            btsStr += "<span class='btn btn-success radius size-MINI f14 ml-10 '>上传";
+            btsStr += "</span>";
             btsStr += " </div>";
         }
         //清理按钮
         if(!opt.isHiddenCleanBt){
-            btsStr += "<div class='cleanFileBt'>";
-            btsStr += "<i class='iconfont icon-qingchu'></i>";
+            btsStr += "<div class='cleanFileBt f-l'>";
+            btsStr += "<span class='btn btn-warning radius size-MINI f14 ml-10 '>清空";
+            btsStr += "</span>";
             btsStr += " </div>";
         }
         btsStr += "</div>";
         $("#"+uploadId).append(btsStr);
 
         //添加文件显示框
-        var boxStr = "<div class='box'></div>";
+        var boxStr = "<div class='box mt-10'></div>";
         $("#"+uploadId).append(boxStr);
     },
     /**
@@ -563,6 +566,7 @@ var uploadEvent = {
         uploadTools.flushOpt(opt);
         if(opt.beforeUpload!=null&&(typeof opt.beforeUpload === "function")) {
             opt.beforeUpload(opt);
+            layer.msg('上传成功');
         }
         uploadTools.uploadFile(opt);
     },
