@@ -30,7 +30,7 @@ $(function() {
     })
 
     $('#container').on('select_node.jstree', function(e, data) {
-        // console.log(data);
+        console.log(data);
         console.log(data.selected);
            parent_id=data.selected;
         var selectedeep = (data.selected[0]);
