@@ -43,7 +43,7 @@ class tableQuaTreeFile
     }
 
     public function getByParent($parent_id,$type){
-        $sql = "SELECT * FROM ".$this->tableName." WHERE parent_id=:parent_id and type=:type LIMIT 1;";
+        $sql = "select * from ".$this->tableName." where type=:type and parent_id=:parent_id ;";
 
         $data = Db::query($sql,['parent_id' =>$parent_id,'type'=>$type]);
 
