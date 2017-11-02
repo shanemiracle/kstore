@@ -18,8 +18,9 @@ class tableQuaTree
 
     private $id;
     private $level;
-    private $seq;
-    private $level_addr;
+    private $parent_seq;
+    private $next_seq;
+    private $rec_seq;
     private $level_remark;
     private $parent;
     private $self_ver;
@@ -51,43 +52,12 @@ class tableQuaTree
 
         $data = Db::query($sql,['id' =>$id]);
 
-        return $data;
-//        if($data){
-//            $this->id = $data[0]['id'];
-//            $this->level = $data[0]['level'];
-//            $this->seq = $data[0]['seq'];
-//            $this->level_addr = $data[0]['level_addr'];
-//            $this->level_remark = $data[0]['level_remark'];
-//            $this->parent = $data[0]['parent'];
-//            $this->self_ver = $data[0]['self_ver'];
-//            $this->refresh_ver = $data[0]['refresh_ver'];
-//            $this->child_create_num = $data[0]['child_create_num'];
-//            $this->child_record_create_num = $data[0]['child_record_create_num'];
-//            $this->cn_name = $data[0]['cn_name'];
-//            $this->en_name = $data[0]['en_name'];
-//            $this->suffix = $data[0]['suffix'];
-//            $this->create_time = $data[0]['create_time'];
-//
-//            $this->all_data = $data[0];
-//
-//            return 0;
-//        }
-//
-//        return -1;
-    }
-
-    public function getByLvel($level,$seq)
-    {
-        $sql = "select * from ".$this->tableName." where level=:level and seq=:seq LIMIT 1;";
-
-        $data = Db::query($sql,['level' =>$level,'seq'=>$seq]);
-
-//        return $data;
         if($data){
             $this->id = $data[0]['id'];
             $this->level = $data[0]['level'];
-            $this->seq = $data[0]['seq'];
-            $this->level_addr = $data[0]['level_addr'];
+            $this->parent_seq = $data[0]['parent_seq'];
+            $this->next_seq = $data[0]['next_seq'];
+            $this->rec_seq = $data[0]['rec_seq'];
             $this->level_remark = $data[0]['level_remark'];
             $this->parent = $data[0]['parent'];
             $this->self_ver = $data[0]['self_ver'];
@@ -101,14 +71,14 @@ class tableQuaTree
 
             $this->all_data = $data[0];
 
-            return 0;
         }
-//
-        return -1;
-    }
+
+        return $data;
+}
+
 
     public function add(){
-        $sql = "INSERT INTO ".$this->tableName." (`id`, `level`, `seq`, `level_addr`, `level_remark`, `parent`, `self_ver`, `refresh_ver`, `child_create_num`, `child_record_create_num`, `cn_name`, `en_name`, `suffix`) VALUES (:id, :level, :seq, :level_addr, :level_remark, :parent, :self_ver, :refresh_ver, :child_create_num, :child_record_create_num, :cn_name, :en_name, :suffix);";
+        $sql = "INSERT INTO ".$this->tableName." (`id`, `level`, `parent_seq` ,`next_seq`, `rec_seq`, `level_remark`, `parent`, `self_ver`, `refresh_ver`, `child_create_num`, `child_record_create_num`, `cn_name`, `en_name`, `suffix`) VALUES (:id, :level, :parent_seq, :next_seq, :rec_seq, :level_remark, :parent, :self_ver, :refresh_ver, :child_create_num, :child_record_create_num, :cn_name, :en_name, :suffix);";
 
         $data=[];
 
@@ -119,18 +89,25 @@ class tableQuaTree
             $data['level'] = $this->level;
         }
 
-        if($this->seq==null){
-            $data['seq'] = 0;
+        if($this->parent_seq ==null){
+            $data['parent_seq'] = 0;
         }
         else{
-            $data['seq'] = $this->seq;
+            $data['parent_seq'] = $this->parent_seq;
         }
 
-        if($this->level_addr==null){
-            $data['level_addr'] = '';
+        if($this->next_seq==null){
+            $data['next_seq'] = 0;
         }
         else{
-            $data['level_addr'] = $this->level_addr;
+            $data['next_seq'] = $this->next_seq;
+        }
+
+        if($this->rec_seq==null){
+            $data['rec_seq'] = 0;
+        }
+        else{
+            $data['rec_seq'] = $this->rec_seq;
         }
 
         if($this->level_remark==null){
@@ -219,14 +196,19 @@ class tableQuaTree
             $updateData['level'] = $this->level;
         }
 
-        if($this->seq!=null){
-            $updateSql .= ',`seq`=:seq';
-            $updateData['seq'] = $this->seq;
+        if($this->parent_seq!=null){
+            $updateSql .= ',`parent_seq`=:parent_seq';
+            $updateData['parent_seq'] = $this->parent_seq;
         }
 
-        if($this->level_addr!=null){
-            $updateSql .= ',`level_addr`=:level_addr';
-            $updateData['level_addr'] = $this->level_addr;
+        if($this->next_seq!=null){
+            $updateSql .= ',`next_seq`=:next_seq';
+            $updateData['next_seq'] = $this->next_seq;
+        }
+
+        if($this->rec_seq!=null){
+            $updateSql .= ',`rec_seq`=:rec_seq';
+            $updateData['rec_seq'] = $this->rec_seq;
         }
 
         if($this->level_remark!=null){
@@ -346,17 +328,17 @@ class tableQuaTree
     /**
      * @return mixed
      */
-    public function getSeq()
+    public function getNextSeq()
     {
-        return $this->seq;
+        return $this->next_seq;
     }
 
     /**
-     * @param mixed $seq
+     * @param mixed $next_seq
      */
-    public function setSeq($seq)
+    public function setNextSeq($next_seq)
     {
-        $this->seq = $seq;
+        $this->next_seq = $next_seq;
     }
 
     /**
@@ -534,6 +516,40 @@ class tableQuaTree
     {
         $this->create_time = $create_time;
     }
+
+    /**
+     * @return mixed
+     */
+    public function getRecSeq()
+    {
+        return $this->rec_seq;
+    }
+
+    /**
+     * @param mixed $rec_seq
+     */
+    public function setRecSeq($rec_seq)
+    {
+        $this->rec_seq = $rec_seq;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getParentSeq()
+    {
+        return $this->parent_seq;
+    }
+
+    /**
+     * @param mixed $parent_seq
+     */
+    public function setParentSeq($parent_seq)
+    {
+        $this->parent_seq = $parent_seq;
+    }
+
+
 
 
 
