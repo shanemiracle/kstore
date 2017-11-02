@@ -42,29 +42,34 @@ class tableQuaTreeFile
         }
     }
 
+    public function getByParent($parent_id,$type){
+        $sql = "SELECT * FROM ".$this->tableName." WHERE parent_id=:parent_id and type=:type LIMIT 1;";
+
+        $data = Db::query($sql,['parent_id' =>$parent_id,'type'=>$type]);
+
+        return $data;
+    }
+
     public function get($id)
     {
         $sql = "SELECT * FROM ".$this->tableName." WHERE id=:id LIMIT 1;";
 
         $data = Db::query($sql,['id' =>$id]);
-//        if($data){
-//            $this->id = $data[0]['id'];
-//            $this->parent_id = $data[0]['parent_id'];
-//            $this->type = $data[0]['type'];
-//            $this->self_ver = $data[0]['self_ver'];
-//            $this->refresh_ver = $data[0]['refresh_ver'];
-//            $this->remark = $data[0]['remark'];
-//            $this->address = $data[0]['address'];
-//            $this->depart = $data[0]['depart'];
-//            $this->create_user = $data[0]['create_user'];
-//            $this->create_time = $data[0]['create_time'];
-//
-//            $this->all_data = $data[0];
-//
-//            return 0;
-//        }
-//
-//        return -1;
+        if($data){
+            $this->id = $data[0]['id'];
+            $this->parent_id = $data[0]['parent_id'];
+            $this->type = $data[0]['type'];
+            $this->self_ver = $data[0]['self_ver'];
+            $this->refresh_ver = $data[0]['refresh_ver'];
+            $this->remark = $data[0]['remark'];
+            $this->address = $data[0]['address'];
+            $this->depart = $data[0]['depart'];
+            $this->create_user = $data[0]['create_user'];
+            $this->create_time = $data[0]['create_time'];
+
+            $this->all_data = $data[0];
+
+        }
         return $data;
     }
 

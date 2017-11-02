@@ -264,100 +264,6 @@ class Api extends Rest
 
 
 
-    public function apiQuaTree1RecAdd()
-    {
-        $parent_id = Request::instance()->param('parent_id');
-        $cn_name = Request::instance()->param('cn_name');
-        $en_name = Request::instance()->param('en_name');
-        $address = Request::instance()->param('address');
-        $remark = Request::instance()->param('remark');
-        $depart = Request::instance()->param('depart');
-        $size = Request::instance()->param('size');
-        $create_user = Request::instance()->param('create_user');
-
-        $data = ['ret_code' => -1, 'ret_desc' => '异常失败'];
-
-        $tableQuaTreeF = new tableQuaTree();
-        $tableQuaTreeC = new tableQuaTree();
-        $tableQuaTreeFile = new tableQuaTreeFile();
-
-        table::startTrans();
-
-        try {
-            $parent_id_ar = explode('-',$parent_id);
-            if(2 != count($parent_id_ar)||$parent_id_ar[0]!= '3') {
-                $data = ['ret_code' => 1, 'ret_desc' => '父节点不属于第1.5层'];
-                goto Finish;
-            }
-
-            $suffixAr = explode('.', $address);
-            $num = count($suffixAr);
-            if ($num <= 1) {
-                $suffix = '';
-            } else {
-                $suffix = $suffixAr[$num - 1];
-            }
-
-
-            if( 0 !=$tableQuaTreeF->getByLvel($parent_id_ar[0],$parent_id_ar[1]) ){
-                $data = ['ret_code' => 3, 'ret_desc' => '父节点获取失败'];
-                table::rollback();
-                goto Finish;
-            }
-
-            $tableQuaTreeC->setLevel(4);
-            $tableQuaTreeC->setNextSeq($tableQuaTreeF->getNextSeq()*10+$tableQuaTreeF->getChildCreateNum());
-            $tableQuaTreeC->setLevelRemark($cn_name);
-            $tableQuaTreeC->setParent($parent_id);
-            $tableQuaTreeC->setSelfVer(0);
-            $tableQuaTreeC->setRefreshVer(0);
-            $tableQuaTreeC->setChildCreateNum(0);
-            $tableQuaTreeC->setChildRecordCreateNum(0);
-            $tableQuaTreeC->setCnName($cn_name);
-            $tableQuaTreeC->setEnName($en_name);
-            $tableQuaTreeC->setSuffix($suffix);
-
-            if (0 != $tableQuaTreeC->add()) {
-                $data = ['ret_code' => 1, 'ret_desc' => '添加 qua_tree 失败'];
-                table::rollback();
-                goto Finish;
-            }
-
-            $tableQuaTreeFile->setParentId(intval($tableQuaTreeC->getId()));
-            $tableQuaTreeFile->setType(1);
-            $tableQuaTreeFile->setSelfVer(0);
-            $tableQuaTreeFile->setRefreshVer(0);
-            $tableQuaTreeFile->setRemark($remark);
-            $tableQuaTreeFile->setAddress($address);
-            $tableQuaTreeFile->setDepart($depart);
-            $tableQuaTreeFile->setCreateUser($create_user);
-            $tableQuaTreeFile->setSize($size);
-
-            if (0 != $tableQuaTreeFile->add()) {
-                $data = ['ret_code' => 2, 'ret_desc' => '添加 qua_tree_file 失败'];
-                table::rollback();
-                goto Finish;
-            }
-
-            $tableQuaTreeF->setChildCreateNum($tableQuaTreeF->getChildCreateNum()+1);
-            if( 0 != $tableQuaTreeF->update($tableQuaTreeF->getId()) ){
-                $data = ['ret_code' => 4, 'ret_desc' => '父节点修改child_num失败'];
-                table::rollback();
-                goto Finish;
-            }
-
-            $data = ['ret_code' => 0, 'ret_desc' => '添加成功'];
-
-            table::commit();
-        } catch (Exception $e) {
-
-            table::rollback();
-            $data = ['ret_code' => -1, 'ret_desc' => $e->getMessage()];
-        }
-
-        Finish:
-        return json($data);
-    }
 
     public function apiQuaTreeListGet()
     {
@@ -413,6 +319,73 @@ class Api extends Rest
         return json($data);
     }
 
+    public function apiQuaTreeFileListGet(){
+        $id = Request::instance()->param('id');
+
+        $data = ['ret_code' => -1, 'ret_desc' => '异常失败'];
+
+
+        try {
+            $tableParam = new tableQuaTreeParam();
+            $tableTreeFile = new tableQuaTreeFile();
+            $tableTree = new tableQuaTree();
+
+            $param = $tableParam->get(1);
+            if (null == $param) {
+                $data = ['ret_code' => 1, 'ret_desc' => '获取配置参数错误'];
+                goto Finish;
+            }
+
+            $id_ar = explode('-', $id);
+            if (2 != count($id_ar)){
+                $data = ['ret_code' => -1, 'ret_desc' => 'id格式错误'.$id];
+                goto Finish;
+            }
+
+            $file_ar = $tableTreeFile->getByParent($id_ar[1],1);
+            if($file_ar == null){
+                $data = ['ret_code' => 0, 'ret_desc' => '无法获取文件', 'data'=>''];
+                goto Finish;
+            }
+
+            $tree = $tableTree->get($id_ar[1]);
+            if(null==$tree){
+                $data = ['ret_code' => 0, 'ret_desc' => '无法获取文件', 'data'=>''];
+                goto Finish;
+            }
+
+            $treeNode = $tree[0];
+
+            $r_data = [];
+
+            for($i = 0; $i < count($file_ar); $i++){
+                $fileNode = $file_ar[$i];
+                if($id_ar[0] == 1){
+                    $file_name = sprintf("%s_%s_%s_%03d.%s",$this->treeLevelAddr($id_ar[0],$param[0]),
+                        $treeNode['cn_name'], $treeNode['en_name'],  $fileNode['self_ver'], $treeNode['suffix']);
+
+                }
+                else{
+                    $file_name = sprintf("%s_%d_%s_%s_%03d.%s",$this->treeLevelAddr($id_ar[0],$param[0]),($treeNode['parent_seq']+$treeNode['next_seq']),
+                        $treeNode['cn_name'], $treeNode['en_name'], $fileNode['self_ver'], $treeNode['suffix'] );
+
+                }
+
+                array_push($r_data,['file_name'=>$file_name,'address'=>$fileNode['address'],'remark'=>$fileNode['remark'],
+                    'depart'=>$fileNode['depart'],'create_user'=>$fileNode['create_user'],'size'=>$fileNode['size'],'create_time'=>$fileNode['create_time']]);
+            }
+
+            $data = ['ret_code' => 0, 'ret_desc' => '成功', 'data'=>$r_data];
+
+
+        }catch (Exception $e) {
+            $data = ['ret_code' => -1, 'ret_desc' => $e->getMessage()];
+        }
+
+        Finish:
+        return json($data);
+    }
+
     public function apiQuaTree0Add()
     {
         $parent = Request::instance()->param('parent');
@@ -425,7 +398,6 @@ class Api extends Rest
         table::startTrans();
 
         try {
-
 
             $tableQuaTree->setLevel(0);
             $tableQuaTree->setParentSeq(0);
@@ -816,7 +788,101 @@ class Api extends Rest
         Finish:
         return json($data);
     }
-    
+
+    public function apiQuaTree1RecAdd()
+    {
+        $parent_id = Request::instance()->param('parent_id');
+        $cn_name = Request::instance()->param('cn_name');
+        $en_name = Request::instance()->param('en_name');
+        $address = Request::instance()->param('address');
+        $remark = Request::instance()->param('remark');
+        $depart = Request::instance()->param('depart');
+        $size = Request::instance()->param('size');
+        $create_user = Request::instance()->param('create_user');
+
+        $data = ['ret_code' => -1, 'ret_desc' => '异常失败'];
+
+        $tableQuaTreeF = new tableQuaTree();
+        $tableQuaTreeC = new tableQuaTree();
+        $tableQuaTreeFile = new tableQuaTreeFile();
+
+        table::startTrans();
+
+        try {
+            $parent_id_ar = explode('-',$parent_id);
+            if(2 != count($parent_id_ar)||$parent_id_ar[0]!= '3') {
+                $data = ['ret_code' => 1, 'ret_desc' => '父节点不属于第1.5层'];
+                goto Finish;
+            }
+
+            $suffixAr = explode('.', $address);
+            $num = count($suffixAr);
+            if ($num <= 1) {
+                $suffix = '';
+            } else {
+                $suffix = $suffixAr[$num - 1];
+            }
+
+
+            if( 0 !=$tableQuaTreeF->getByLvel($parent_id_ar[0],$parent_id_ar[1]) ){
+                $data = ['ret_code' => 3, 'ret_desc' => '父节点获取失败'];
+                table::rollback();
+                goto Finish;
+            }
+
+            $tableQuaTreeC->setLevel(4);
+            $tableQuaTreeC->setNextSeq($tableQuaTreeF->getNextSeq()*10+$tableQuaTreeF->getChildCreateNum());
+            $tableQuaTreeC->setLevelRemark($cn_name);
+            $tableQuaTreeC->setParent($parent_id);
+            $tableQuaTreeC->setSelfVer(0);
+            $tableQuaTreeC->setRefreshVer(0);
+            $tableQuaTreeC->setChildCreateNum(0);
+            $tableQuaTreeC->setChildRecordCreateNum(0);
+            $tableQuaTreeC->setCnName($cn_name);
+            $tableQuaTreeC->setEnName($en_name);
+            $tableQuaTreeC->setSuffix($suffix);
+
+            if (0 != $tableQuaTreeC->add()) {
+                $data = ['ret_code' => 1, 'ret_desc' => '添加 qua_tree 失败'];
+                table::rollback();
+                goto Finish;
+            }
+
+            $tableQuaTreeFile->setParentId(intval($tableQuaTreeC->getId()));
+            $tableQuaTreeFile->setType(1);
+            $tableQuaTreeFile->setSelfVer(0);
+            $tableQuaTreeFile->setRefreshVer(0);
+            $tableQuaTreeFile->setRemark($remark);
+            $tableQuaTreeFile->setAddress($address);
+            $tableQuaTreeFile->setDepart($depart);
+            $tableQuaTreeFile->setCreateUser($create_user);
+            $tableQuaTreeFile->setSize($size);
+
+            if (0 != $tableQuaTreeFile->add()) {
+                $data = ['ret_code' => 2, 'ret_desc' => '添加 qua_tree_file 失败'];
+                table::rollback();
+                goto Finish;
+            }
+
+            $tableQuaTreeF->setChildCreateNum($tableQuaTreeF->getChildCreateNum()+1);
+            if( 0 != $tableQuaTreeF->update($tableQuaTreeF->getId()) ){
+                $data = ['ret_code' => 4, 'ret_desc' => '父节点修改child_num失败'];
+                table::rollback();
+                goto Finish;
+            }
+
+            $data = ['ret_code' => 0, 'ret_desc' => '添加成功'];
+
+            table::commit();
+        } catch (Exception $e) {
+
+            table::rollback();
+            $data = ['ret_code' => -1, 'ret_desc' => $e->getMessage()];
+        }
+
+        Finish:
+        return json($data);
+    }
 
 
 }
