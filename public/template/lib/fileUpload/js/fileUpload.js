@@ -9,7 +9,7 @@ $.fn.extend({
         }
         var uploadId = $(this).attr("id");
         if(uploadId==null||uploadId==""){
-            alert("要设定一个id!");
+            // alert("要设定一个id!");
         }
         $.each(uploadTools.getInitOption(uploadId), function (key, value) {
             if (opt[key] == null) {

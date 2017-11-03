@@ -20,4 +20,15 @@ class Tree
     public function popfourth(){
       return view('tree/createFourth');
     }
+    public function recordone(){
+      return view('tree/recordOne');
+    }
+    public function recordtwo(){
+      return view('tree/recordTwo');
+    }
+    public function recordthree(){
+      return view('tree/recordThree');
+    }
+
+
 }

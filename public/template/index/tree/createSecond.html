@@ -1,5 +1,6 @@
 <!DOCTYPE HTML>
 <html>
+
 <head>
     <meta charset="utf-8">
     <meta name="renderer" content="webkit|ie-comp|ie-stand">
@@ -20,8 +21,8 @@
  -->
     <link rel="stylesheet" href="/template/lib/jstree/themes/default/style.min.css">
     <link rel="stylesheet" href="/template/static/css/main.css">
-     <link rel="stylesheet" href="/template/lib/fileUpload/css/iconfont.css" rel="stylesheet" type="text/css"/>
-    <link href="/template/lib/fileUpload/css/fileUpload.css" type="text/css"/>
+    <link rel="stylesheet" href="/template/lib/fileUpload/css/iconfont.css" rel="stylesheet" type="text/css" />
+    <link href="/template/lib/fileUpload/css/fileUpload.css" type="text/css" />
     <title></title>
     <meta name="keywords" content="智微信科">
     <meta name="description" content="智微信科知识库！">
@@ -30,53 +31,33 @@
 <body>
     <div class="formwrap ">
         <form action="" method="post" class="form form-horizontal  " id="form_creat">
-                       <div class="row clearfix">
-                <label class="form-label col-xs-3 col-sm-4"><span class="c-red">*</span>中文名：</label>
-                <div class="formControls col-xs-7 col-sm-6">
-                    <input type="text" class="input-text radius" value="" placeholder="请输入文件中文名" id="contact" required name="contact" maxlength="18">
-                </div>
-            </div>
             <div class="row clearfix">
-                <label class="form-label col-xs-3 col-sm-4"><span class="c-red">*</span>英文名：</label>
+                <label class="form-label col-xs-3 col-sm-4"><span class="c-red">*</span>起始值：</label>
                 <div class="formControls col-xs-7 col-sm-6">
-                    <input type="text" class="input-text radius" value="" placeholder="请输入文件英文名" id="contact" required name="contact" maxlength="18">
+                    <input type="text" class="input-text radius"  id="start_num"value="" placeholder="请输入初始值" id="contact" required name="contact" maxlength="18">
                 </div>
             </div>
+
             <div class="row clearfix ">
                 <label class="form-label col-xs-3 col-sm-4 "><span class="c-red">*</span>相关描述：</label>
                 <div class="formControls col-xs-7 col-sm-6">
-                    <textarea name="" id="" cols="40" rows="10" placeholder="关于文件的描述" class='textarea'></textarea>
-                </div>
-            </div>
-            <div class="row clearfix ">
-                <label class="form-label col-xs-3 col-sm-4 "><span class="c-red">*</span>所属部门：</label>
-                <div class="formControls col-xs-7 col-sm-6">
-                    <span class="select-box">
-                      <select class="select" size="1" >
-                      </select>
-                </span>
-                </div>
-            </div>
-           <div class=" row clearfix text-c  ">
-                <label class="form-label col-xs-3 col-sm-4 "><span class="c-red">*</span>附件上传：</label>
-                <div class="formControls col-xs-7 col-sm-6">
-                     <div id="fileUploadContent" class="fileUploadContent clearfix">
-                         
-                     </div>
+                    <textarea name="" id="level_remark" cols="40" rows="10" placeholder="关于文件的描述" class='textarea'></textarea>
                 </div>
             </div>
             <div class="row clearfix text-c ">
                 <div class="mt-20">
-                    <input class="btn btn-primary radius creat-two" type="button" value="&nbsp;&nbsp;提交&nbsp;&nbsp;">
+                    <input class="btn btn-primary radius " id="submit-two" type="button" value="&nbsp;&nbsp;提交&nbsp;&nbsp;">
                 </div>
             </div>
         </form>
     </div>
-    <script type="text/javascript" src="/template/lib/h-ui/lib/jquery/1.9.1/jquery.min.js"></script>
+    <script src="/template/lib/h-ui/lib/jquery/1.9.1/jquery.min.js"></script>
     <script type="text/javascript" src="/template/lib/h-ui/js/H-ui.js"></script>
     <script type='text/javascript' src='/template/lib/h-ui/lib/layer/2.4/layer.js'></script>
-     <script type="text/javascript" src="/template/lib/fileUpload/js/fileUpload.js"></script>
-     <script  src='/template/static/js/creatree.js'></script>
+    <script type='text/javascript' src='/template/lib/h-ui/lib/jquery.validation/1.14.0/jquery.validate.js'>
+    </script>
+    <script type="text/javascript" src="/template/lib/fileUpload/js/fileUpload.js"></script>
+    <script src='/template/static/js/creatree.js'></script>
 </body>
 
 </html>
