@@ -1679,8 +1679,52 @@ class Api extends Rest
 
     }
 
-    private function revTreeDelete($parent_id){
-        
+    private function revTreeDelete($parent_id,$root_id,$tableTree,$tableTreeFile){
+
+        if($parent_id == null || null == $root_id ) {
+            Log::alert("参数不能为空");
+            return 1;
+        }
+
+//        $tableTree = new tableQuaTree();
+//        $tableTreeFile = new tableQuaTreeFile();
+
+        $treeData = $tableTree->getOneChild($parent_id);
+        if($treeData){
+            return $this->revTreeDelete(sprintf("%d-%d",$treeData[0]['level'],$treeData[0]['id']),$root_id,$tableTree,$tableTreeFile);
+        }
+        else{
+            $id_ar = explode('-',$parent_id);
+            if(2 != count($id_ar) ) {
+                Log::alert('id 错误'.$parent_id);
+                return 2;
+            }
+
+            $r_data = $tableTree->get(intval($id_ar[1]));
+
+            $tableTreeFile->delByParent(intval($parent_id));
+
+
+            $tableTree->del(intval($id_ar[1]));
+
+
+            if($parent_id == $root_id){
+                return 0;
+            }
+            else{
+//                $r_data = $tableTree->get(intval($id_ar[1]));
+                if(null == $r_data){
+                    Log::alert('child no father'.$parent_id);
+                    return 3;
+                }
+                return $this->revTreeDelete(sprintf("%s",$r_data[0]['parent']),$root_id,$tableTree,$tableTreeFile);
+
+            }
+
+        }
+
+
+
     }
 
     public function apiQuaTreeDelete()
@@ -1695,9 +1739,16 @@ class Api extends Rest
 
         try {
 
-            $data = ['ret_code' => 0, 'ret_desc' => '成功'];
+            if( 0 == $this->revTreeDelete($id,$id,$tableQuaTree,$tableQuaTreeFile) ){
+                table::commit();
+                $data = ['ret_code' => 0, 'ret_desc' => '成功'];
+            }
+            else{
+                table::rollback();
+                $data = ['ret_code' => 1, 'ret_desc' => '失败'];
+            }
 
-            table::commit();
+
         } catch (Exception $e) {
 
             table::rollback();
