@@ -233,7 +233,7 @@ class tableQuaTreeFile
     public function delByParent($parent_id){
         $sql = 'DELETE FROM '.$this->tableName.' WHERE `parent_id`=:parent_id';
 
-        $ret = Db::execute($sql,['parent_id'=>$parent_id]);
+        $ret = Db::execute($sql,['parent_id'=>intval($parent_id)]);
 
         return $ret;
     }

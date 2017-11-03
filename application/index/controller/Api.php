@@ -481,7 +481,7 @@ class Api extends Rest
             if ($num <= 1) {
                 $suffix = '';
             } else {
-                $suffix = $suffixAr[$num - 1];
+                $suffix = '.'.$suffixAr[$num - 1];
             }
 
 
@@ -643,7 +643,7 @@ class Api extends Rest
             if ($num <= 1) {
                 $suffix = '';
             } else {
-                $suffix = $suffixAr[$num - 1];
+                $suffix = '.'.$suffixAr[$num - 1];
             }
 
 
@@ -740,7 +740,7 @@ class Api extends Rest
             if ($num <= 1) {
                 $suffix = '';
             } else {
-                $suffix = $suffixAr[$num - 1];
+                $suffix = '.'.$suffixAr[$num - 1];
             }
 
 
@@ -1702,7 +1702,7 @@ class Api extends Rest
 
             $r_data = $tableTree->get(intval($id_ar[1]));
 
-            $tableTreeFile->delByParent(intval($parent_id));
+            $tableTreeFile->delByParent($id_ar[1]);
 
 
             $tableTree->del(intval($id_ar[1]));
