@@ -182,7 +182,6 @@ class Api extends Rest
         return json($data);
     }
 
-
     private function treeLevelAddr($level, $tableData)
     {
 
@@ -221,7 +220,6 @@ class Api extends Rest
         return '';
     }
 
-
     public function apiQuaTreeFileNameCheck()
     {
         $level = Request::instance()->param('level');
@@ -248,7 +246,6 @@ class Api extends Rest
         $id = Request::instance()->param('id');
         $level_remark = Request::instance()->param('level_remark');
     }
-
 
     public function apiQuaTreeListGet()
     {
@@ -306,6 +303,29 @@ class Api extends Rest
         return json($data);
     }
 
+    public function apiQuaTreeInfoGet()
+    {
+        $id = Request::instance()->param('id');
+        $data = ['ret_code' => -1, 'ret_desc' => '异常失败'];
+        $tableTree = new tableQuaTree();
+
+        try {
+            $r_data = $tableTree->get($id);
+            if (null == $r_data) {
+                $data = ['ret_code' => 1, 'ret_desc' => '获取失败'];
+            } else {
+                $data = ['ret_code' => 0, 'ret_desc' => '成功', 'data' => $r_data];
+            }
+
+        } catch (Exception $e) {
+            $data = ['ret_code' => -1, 'ret_desc' => $e->getMessage()];
+        }
+
+        Finish:
+        return json($data);
+
+    }
+
     public function apiQuaTreeFileListGet()
     {
         $id = Request::instance()->param('id');
@@ -359,12 +379,11 @@ class Api extends Rest
                     $file_name = sprintf("%s_%s%s_%03d%s", $this->treeLevelAddr($id_ar[0], $param[0]),
                         $treeNode['cn_name'], $treeNode['en_name'] == null ? '' : '_' . $treeNode['en_name'], $fileNode['self_ver'], $treeNode['suffix']);
 
-                }
-                else if($id_ar[0] == 5||$id_ar[0] == 6||$id_ar[0] == 7){
+                } else if ($id_ar[0] == 5 || $id_ar[0] == 6 || $id_ar[0] == 7) {
                     $file_name = sprintf("%s_%d_%s%s_%03d_%03d%s", $this->treeLevelAddr($id_ar[0], $param[0]), ($treeNode['parent_seq'] + $treeNode['next_seq']),
-                        $treeNode['cn_name'], $treeNode['en_name'] == null ? '' : '_' . $treeNode['en_name'], $fileNode['self_ver'],$fileNode['refresh_ver'], $treeNode['suffix']);
+                        $treeNode['cn_name'], $treeNode['en_name'] == null ? '' : '_' . $treeNode['en_name'], $fileNode['self_ver'], $fileNode['refresh_ver'], $treeNode['suffix']);
 
-                }else {
+                } else {
                     $file_name = sprintf("%s_%d_%s%s_%03d%s", $this->treeLevelAddr($id_ar[0], $param[0]), ($treeNode['parent_seq'] + $treeNode['next_seq']),
                         $treeNode['cn_name'], $treeNode['en_name'] == null ? '' : '_' . $treeNode['en_name'], $fileNode['self_ver'], $treeNode['suffix']);
 
@@ -1658,6 +1677,35 @@ class Api extends Rest
         Finish:
         return json($data);
 
+    }
+
+    private function revTreeDelete($parent_id){
+        
+    }
+
+    public function apiQuaTreeDelete()
+    {
+        $id = Request::instance()->param('id');
+        $data = ['ret_code' => -1, 'ret_desc' => '异常失败'];
+
+        $tableQuaTree = new tableQuaTree();
+        $tableQuaTreeFile = new tableQuaTreeFile();
+
+        table::startTrans();
+
+        try {
+
+            $data = ['ret_code' => 0, 'ret_desc' => '成功'];
+
+            table::commit();
+        } catch (Exception $e) {
+
+            table::rollback();
+            $data = ['ret_code' => -1, 'ret_desc' => $e->getMessage()];
+        }
+
+        Finish:
+        return json($data);
     }
 
 }
