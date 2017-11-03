@@ -305,8 +305,15 @@ class Api extends Rest
         $data = ['ret_code' => -1, 'ret_desc' => '异常失败'];
         $tableTree = new tableQuaTree();
 
+        $id_ar = explode('-',$id);
+        if( 2 != count($id_ar)){
+            $data = ['ret_code' => 2, 'ret_desc' => 'id错误'.$id];
+            goto Finish;
+        }
+
+
         try {
-            $r_data = $tableTree->get($id);
+            $r_data = $tableTree->get($id_ar[1]);
             if (null == $r_data) {
                 $data = ['ret_code' => 1, 'ret_desc' => '获取失败'];
             } else {
