@@ -1,5 +1,6 @@
 <!DOCTYPE HTML>
 <html>
+
 <head>
     <meta charset="utf-8">
     <meta name="renderer" content="webkit|ie-comp|ie-stand">
@@ -7,18 +8,20 @@
     <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
     <meta http-equiv="Cache-Control" content="no-siteapp" />
     <!--[if lt IE 9]>
-<script type="text/javascript" src="lib/html5shiv.js"></script>
-<script type="text/javascript" src="lib/respond.min.js"></script>
-<![endif]-->
+    <script type="text/javascript" src="lib/html5shiv.js"></script>
+    <script type="text/javascript" src="lib/respond.min.js"></script>
+    <![endif]-->
     <!-- <link rel="stylesheet" type="text/css" href="../lib/h-ui/css/H-ui.css" /> -->
     <!--[if lt IE 9]>
-<link href="static/h-ui/css/H-ui.ie.css" rel="stylesheet" type="text/css" />
-<![endif]-->
+    <link href="static/h-ui/css/H-ui.ie.css" rel="stylesheet" type="text/css" />
+    <![endif]-->
     <link rel="stylesheet" href="/template/lib/h-ui/css/H-ui.css">
     <link rel="stylesheet" type="text/css" href="/template/lib/h-ui/lib/Hui-iconfont/1.0.8/iconfont.min.css" />
-    <!-- <link rel="stylesheet" href="../lib/layer/theme/default/layer.css">
+    <!--     <link rel="stylesheet" href="../lib/layer/theme/default/layer.css">
  -->
     <link rel="stylesheet" href="/template/lib/jstree/themes/default/style.min.css">
+    <link rel="stylesheet" href="/template/lib/fileUpload/css/iconfont.css" rel="stylesheet" type="text/css" />
+    <link href="/template/lib/fileUpload/css/fileUpload.css" type="text/css" />
     <link rel="stylesheet" href="/template/static/css/main.css">
     <style type="text/css">
 
@@ -29,56 +32,58 @@
 </head>
 
 <body>
-    <!--  <div class='header'>
-        <span>智微知库</span>
-    </div>
- -->
     <div class="formwrap ">
-        <form action="" method="post" class="form form-horizontal  " id="form-admin-add">
+        <form action="" method="post" class="form form-horizontal" id="form_creat">
             <div class="row clearfix">
-                <label class="form-label col-xs-3 col-sm-4"><span class="c-red">*</span>文件名：</label>
+                <label class="form-label col-xs-3 col-sm-4"><span class="c-red">*</span>中文名：</label>
                 <div class="formControls col-xs-7 col-sm-6">
-                    <input type="text" class="input-text radius" value="" placeholder="请输入文件名如及后缀:123 .doc：" id="contact" required name="contact" maxlength="18">
+                    <input type="text" class="input-text radius" id='cn_name' value="" placeholder="请输入文件中文名" id="contact" required name="contact" maxlength="18">
                 </div>
             </div>
-            </br>
+            <div class="row clearfix">
+                <label class="form-label col-xs-3 col-sm-4"><span class="c-red">*</span>英文名：</label>
+                <div class="formControls col-xs-7 col-sm-6">
+                    <input type="text" class="input-text radius" value="" placeholder="请输入文件英文名" id='en_name' required name="contact" maxlength="18">
+                </div>
+            </div>
             <div class="row clearfix ">
                 <label class="form-label col-xs-3 col-sm-4 "><span class="c-red">*</span>相关描述：</label>
                 <div class="formControls col-xs-7 col-sm-6">
-                    <textarea name="" id="" cols="40" rows="10" placeholder="关于文件的描述" class='textarea'></textarea>
+                    <textarea name="" id="file_descripe" cols="40" rows="10" placeholder="关于文件的描述" class='textarea'></textarea>
                 </div>
             </div>
             <div class="row clearfix ">
                 <label class="form-label col-xs-3 col-sm-4 "><span class="c-red">*</span>所属部门：</label>
                 <div class="formControls col-xs-7 col-sm-6">
                     <span class="select-box">
-                      <select class="select" size="1" name="demo1">
-                        <option value="" selected>默认select</option>
-                        <option value="1">菜单一</option>
-                        <option value="2">菜单二</option>
-                        <option value="3">菜单三</option>
+                      <select class="select" size="1" >
                       </select>
                 </span>
                 </div>
             </div>
-            <div class=" row clearfix text-c ">
+            <div class=" row clearfix text-c  ">
                 <label class="form-label col-xs-3 col-sm-4 "><span class="c-red">*</span>附件上传：</label>
-                <div class='btn-upload'>
-                    <input type="file" name='file' class=''>
+                <div class="formControls col-xs-7 col-sm-6">
+                    <div id="fileUploadContent" class="fileUploadContent clearfix">
+                    </div>
                 </div>
             </div>
             <div class="row clearfix text-c ">
-                <div class="mt-40">
-                    <input class="btn btn-primary radius hs-submit save-pwd" type="button" value="&nbsp;&nbsp;提交&nbsp;&nbsp;">
+                <div class="mt-15">
+                    <input class="btn btn-primary radius " type="button" value="&nbsp;&nbsp;提交&nbsp;&nbsp;" id="submit-four">
                 </div>
             </div>
         </form>
     </div>
     <script type="text/javascript" src="/template/lib/h-ui/lib/jquery/1.9.1/jquery.min.js"></script>
     <script type="text/javascript" src="/template/lib/h-ui/js/H-ui.js"></script>
-    <script type='text/javascript' src='/template/lib/h-ui/lib/layer/2.4/layer.js'></script>
-    <!-- <script type='text/javascript' src='../static/js/all.js'></script>
- -->
+    <script type='text/javascript' src='/template/lib/h-ui/lib/jquery.validation/1.14.0/jquery.validate.js'>
+    </script>
+    <!--     <script type='text/javascript' src='/template/lib/h-ui/lib/jquery.validation/1.14.0/validate-methods.js'></script> -->
+   <!--  <script type='text/javascript' src='/template/lib/h-ui/lib/layer/2.4/layer.js'></script> -->
+    <script type="text/javascript" src="/template/lib/fileUpload/js/fileUpload.js"></script>
+    <script  src='/template/static/js/creatree.js'></script>
+
 </body>
 
 </html>
