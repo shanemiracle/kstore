@@ -5,19 +5,20 @@
     <meta charset="utf-8">
     <meta name="renderer" content="webkit|ie-comp|ie-stand">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
-    <meta http-equiv="Cache-Control" content="no-siteapp" />
+    <meta name="viewport"
+          content="width=device-width,initial-scale=1,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no"/>
+    <meta http-equiv="Cache-Control" content="no-siteapp"/>
     <!--[if lt IE 9]>
-<script type="text/javascript" src="lib/html5shiv.js"></script>
-<script type="text/javascript" src="lib/respond.min.js"></script>
-<![endif]-->
+    <script type="text/javascript" src="lib/html5shiv.js"></script>
+    <script type="text/javascript" src="lib/respond.min.js"></script>
+    <![endif]-->
     <!-- <link rel="stylesheet" type="text/css" href="../lib/h-ui/css/H-ui.css" /> -->
     <!--[if lt IE 9]>
-<link href="static/h-ui/css/H-ui.ie.css" rel="stylesheet" type="text/css" />
-<![endif]-->
+    <link href="static/h-ui/css/H-ui.ie.css" rel="stylesheet" type="text/css"/>
+    <![endif]-->
     <link rel="stylesheet" href="/template/lib/h-ui/css/H-ui.css">
-    <link rel="stylesheet" type="text/css" href="/template/lib/h-ui/lib/Hui-iconfont/font_file/iconfont.css" />
-    <link rel="stylesheet" type="text/css" href="/template/lib/h-ui/lib/Hui-iconfont/1.0.8/iconfont.min.css" />
+    <link rel="stylesheet" type="text/css" href="/template/lib/h-ui/lib/Hui-iconfont/font_file/iconfont.css"/>
+    <link rel="stylesheet" type="text/css" href="/template/lib/h-ui/lib/Hui-iconfont/1.0.8/iconfont.min.css"/>
     <link rel="stylesheet" href="/template/lib/layer/theme/default/layer.css">
     <link rel="stylesheet" href="/template/lib/jstree/themes/default/style.min.css">
     <link rel="stylesheet" href="/template/static/css/main.css">
@@ -30,81 +31,100 @@
 </head>
 
 <body>
-    <div class='header'>
-        <span>智微知库</span>
-        <span class='f-r mr-10'>coco</span>
-    </div>
-    <div class='wrapper clearfix'>
-        <div class="sidebars f-l">
-            <div class='filter' >
-                <input type="text" placeholder="按文件名搜索" class="input-text radius size-S" id='searchMenu'>
-            </div>
-            <div id="container" class='mt20' style='font-size:14px'>
-            </div>
+<div class='header'>
+    <span>智微知库</span>
+    <span class='f-r mr-10'>coco</span>
+</div>
+<div class='wrapper clearfix'>
+    <div class="sidebars f-l">
+        <div class='filter'>
+            <input type="text" placeholder="按文件名搜索" class="input-text radius size-S" id='searchMenu'>
         </div>
-        <div class="contents f-l ">
-            <div class='random-box'>
-                    <div class="filter clearfix">
-                         <a class="btn btn-primary size-S radius  pop-one" href=" javascript:void(0) ">上传下一层</a>
-                        <div class="formControls col-xs-4 col-sm-3 f-r">
-                            <input type="text" class="input-text radius" value="" placeholder="按编辑人搜索" id=''>
-                        </div>
-                    </div>
-
-                    <div class="filter clearfix">
-                        <a class="btn btn-primary size-S radius update-file " href=" javascript:void(0) ">文件更新</a>
-                        <a class="btn btn-primary size-S radius note-one  ml-10 " href=" javascript:void(0) ">上传记录</a>
-                         <a class="btn btn-primary size-S radius ml-10  pop-two" href=" javascript:void(0) ">创建下一层</a>
-                        <div class="formControls col-xs-4 col-sm-3 f-r">
-                            <input type="text" class="input-text radius" value="" placeholder="按编辑人搜索" id=''>
-                        </div>
-                    </div>
-
-                    <div class="filter clearfix">
-                        <a class="btn btn-primary size-S radius  pop-three href=" javascript:void(0) ">上传文件</a>
-                      <!--    <a class="btn btn-primary size-S radius ml-10 href=" javascript:void(0) ">上传记录</a> -->
-                        <div class="formControls col-xs-4 col-sm-3 f-r">
-                            <input type="text" class="input-text radius" value="" placeholder="按编辑人搜索" id=''>
-                        </div>
-                    </div>
-
-                    <div class="filter clearfix">
-                        <a class="btn btn-primary size-S radius update-file"  href=" javascript:void(0) ">文件更新</a>
-                         <a class="btn btn-primary size-S note-two  radius ml-10" href=" javascript:void(0) ">上传记录</a>
-                        <a class="btn btn-primary size-S radius ml-10 pop-four" href=" javascript:void(0) ">创建下一层</a>
-                         <div class="formControls col-xs-4 col-sm-3 f-r ">
-                            <input type="text " class="input-text radius " value=" " placeholder="按编辑人搜索 " id=''>
-                         </div>
-                    </div>
-
-                    <div class="filter clearfix">
-                        <a class="btn btn-primary update-file size-S radius "  href=" javascript:void(0) ">文件更新</a>
-                         <a class="btn btn-primary size-S radius note-three ml-10" href=" javascript:void(0) ">上传记录</a>
-                         <div class="formControls col-xs-4 col-sm-3 f-r ">
-                            <input type="text " class="input-text radius " value=" " placeholder="按编辑人搜索 " id=''>
-                         </div>
-                    </div>
-            </div>
-            <div class='table-show'>
-                <p class='text-c c-666 f20 mt10 mb10'>文件列表</p>
-                <table class='table f16'>
-                   <thead class="text-c ">
-                    <td>文件名</td>    
-                    <td>部门</td>    
-                    <td>修改时间</td>   
-                    <td>描述</td>   
-                   </thead>
-                   <tbody class='table-content'>
-                   </tbody>    
-                </table>
-            </div>
+        <div id="container" class='mt20' style='font-size:14px'>
         </div>
     </div>
+    <div class="contents f-l ">
+        <div class='random-box'>
+            <div class="filter clearfix">
+                <a class="btn btn-primary size-S radius  pop-one" href=" javascript:void(0) ">上传下一层</a>
+                <div class="formControls col-xs-4 col-sm-3 f-r">
+                    <input type="text" class="input-text radius" value="" placeholder="按编辑人搜索" id=''>
+                </div>
+            </div>
 
-<script  src="/template/lib/h-ui/lib/jquery/1.9.1/jquery.min.js "></script>
+            <div class="filter clearfix">
+                <a class="btn btn-primary size-S radius update-file " href=" javascript:void(0) ">文件更新</a>
+                <a class="btn btn-primary size-S radius note-one  ml-10 " href=" javascript:void(0) ">上传记录</a>
+                <a class="btn btn-primary size-S radius ml-10  pop-two" href=" javascript:void(0) ">创建下一层</a>
+                <div class="formControls col-xs-4 col-sm-3 f-r">
+                    <input type="text" class="input-text radius" value="" placeholder="按编辑人搜索" id=''>
+                </div>
+            </div>
+
+            <div class="filter clearfix">
+                <a class="btn btn-primary size-S radius  pop-three href=" javascript:void(0) ">上传文件</a>
+                <!--    <a class="btn btn-primary size-S radius ml-10 href=" javascript:void(0) ">上传记录</a> -->
+                <div class="formControls col-xs-4 col-sm-3 f-r">
+                    <input type="text" class="input-text radius" value="" placeholder="按编辑人搜索" id=''>
+                </div>
+            </div>
+
+            <div class="filter clearfix">
+                <a class="btn btn-primary size-S radius update-file" href=" javascript:void(0) ">文件更新</a>
+                <a class="btn btn-primary size-S note-two  radius ml-10" href=" javascript:void(0) ">上传记录</a>
+                <a class="btn btn-primary size-S radius ml-10 pop-four" href=" javascript:void(0) ">创建下一层</a>
+                <div class="formControls col-xs-4 col-sm-3 f-r ">
+                    <input type="text " class="input-text radius " value=" " placeholder="按编辑人搜索 " id=''>
+                </div>
+            </div>
+
+            <div class="filter clearfix">
+                <a class="btn btn-primary update-file size-S radius " href=" javascript:void(0) ">文件更新</a>
+                <a class="btn btn-primary size-S radius note-three ml-10" href=" javascript:void(0) ">上传记录</a>
+                <div class="formControls col-xs-4 col-sm-3 f-r ">
+                    <input type="text " class="input-text radius " value=" " placeholder="按编辑人搜索 " id=''>
+                </div>
+            </div>
+        </div>
+
+
+        <div class='table-show'>
+            <!--<p class='text-c c-666 f20 mt10 mb10'>文件列表</p>-->
+            <!--<table class='table f16'>-->
+            <!--<thead class="text-c ">-->
+            <!--<td>文件名</td>    -->
+            <!--<td>部门</td>    -->
+            <!--<td>修改时间</td>   -->
+            <!--<td>描述</td>   -->
+            <!--</thead>-->
+            <!--<tbody class='table-content'>-->
+            <!--</tbody>    -->
+            <!--</table>-->
+            <table class="table" id="fileTable">
+                <thead>
+                <tr class="text-c">
+                    <th>文件名</th>
+                    <th>备注</th>
+                    <th>部门</th>
+                    <th>大小</th>
+                    <th>创建者</th>
+                    <th>创建时间</th>
+                </tr>
+                </thead>
+
+            </table>
+        </div>
+
+
+    </div>
+</div>
+
+<script src="/template/lib/h-ui/lib/jquery/1.9.1/jquery.min.js "></script>
 <script type="text/javascript " src="/template/lib/h-ui/js/H-ui.js "></script>
 <script type='text/javascript' src='/template/lib/jstree/jstree.min.js'></script>
 <script type='text/javascript' src='/template/lib/h-ui/lib/layer/2.4/layer.js'></script>
+<script type='text/javascript' src='/template/lib/h-ui/lib/datatables/1.10.0/jquery.dataTables.min.js'></script>
+
 <script type='text/javascript' src='/template/static/js/index.js'></script>
 </body>
 </html>
