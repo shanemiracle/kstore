@@ -241,11 +241,7 @@ class Api extends Rest
 
     }
 
-    public function apiQuaTree1_5Update()
-    {
-        $id = Request::instance()->param('id');
-        $level_remark = Request::instance()->param('level_remark');
-    }
+
 
     public function apiQuaTreeListGet()
     {
@@ -1429,6 +1425,25 @@ class Api extends Rest
         }
 
         Finish:
+        return json($data);
+    }
+
+    public function apiQuaTree1_5Update()
+    {
+        $id = Request::instance()->param('id');
+        $level_remark = Request::instance()->param('level_remark');
+
+        $table = new tableQuaTree();
+
+        $table->setLevelRemark($level_remark);
+
+        if( 0 == $table->update($id) ){
+            $data = ['ret_code' => 0, 'ret_desc' => '成功'];
+        }
+        else{
+            $data = ['ret_code' => 1, 'ret_desc' => '失败'];
+        }
+
         return json($data);
     }
 
