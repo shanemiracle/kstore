@@ -1191,7 +1191,7 @@ class Api extends Rest
             if ($num <= 1) {
                 $suffix = '';
             } else {
-                $suffix = $suffixAr[$num - 1];
+                $suffix = '.'.$suffixAr[$num - 1];
             }
 
 
@@ -1273,7 +1273,7 @@ class Api extends Rest
             if ($num <= 1) {
                 $suffix = '';
             } else {
-                $suffix = $suffixAr[$num - 1];
+                $suffix = '.'.$suffixAr[$num - 1];
             }
 
 
@@ -1355,7 +1355,7 @@ class Api extends Rest
             if ($num <= 1) {
                 $suffix = '';
             } else {
-                $suffix = $suffixAr[$num - 1];
+                $suffix = '.'.$suffixAr[$num - 1];
             }
 
 
@@ -1437,7 +1437,7 @@ class Api extends Rest
             if ($num <= 1) {
                 $suffix = '';
             } else {
-                $suffix = $suffixAr[$num - 1];
+                $suffix = '.'.$suffixAr[$num - 1];
             }
 
 
@@ -1538,7 +1538,7 @@ class Api extends Rest
             if ($num <= 1) {
                 $suffix = '';
             } else {
-                $suffix = $suffixAr[$num - 1];
+                $suffix = '.'.$suffixAr[$num - 1];
             }
 
 
@@ -1620,7 +1620,7 @@ class Api extends Rest
             if ($num <= 1) {
                 $suffix = '';
             } else {
-                $suffix = $suffixAr[$num - 1];
+                $suffix = '.'.$suffixAr[$num - 1];
             }
 
 
@@ -1703,7 +1703,7 @@ class Api extends Rest
             if ($num <= 1) {
                 $suffix = '';
             } else {
-                $suffix = $suffixAr[$num - 1];
+                $suffix = '.'.$suffixAr[$num - 1];
             }
 
 
