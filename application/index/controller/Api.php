@@ -15,6 +15,8 @@ use app\index\table\tableQuaTree;
 use app\index\table\tableQuaTreeFile;
 use app\index\table\tableQuaTreeParam;
 use app\index\table\tableUser;
+use PhpOffice\PhpWord\TemplateProcessor;
+use function Sodium\add;
 use think\controller\Rest;
 use think\Exception;
 use think\Log;
@@ -331,7 +333,35 @@ class Api extends Rest
 
     private function wordUpdate($level,$fileName,$fileAddr,$fileVer,$fileRefresh,$date)
     {
+        if(null ==$fileName || '' == $fileName){
+            Log::alert("fileName不能为空");
+            return 1;
+        }
 
+        $templateProcessor = new TemplateProcessor($fileName);
+        if( null == $templateProcessor){
+            Log::alert("找不到模板");
+            return 1;
+        }
+
+        if(1 == $level || 3 == $level || 4 == $level){
+            $templateProcessor->setValue('addrName',$fileAddr);
+            $templateProcessor->setValue('fileVer',$fileVer);
+        }
+        else if(4 == $level || 5 == $level || 6 == $level){
+            $templateProcessor->setValue('addrName',$fileAddr);
+            $templateProcessor->setValue('fileVer',$fileVer);
+            $templateProcessor->setValue('fileRefresh',$fileRefresh);
+            $templateProcessor->setValue('date',$date);
+        }
+        else{
+            return 2;
+        }
+
+
+        $templateProcessor->saveAs($fileName);
+
+        return 0;
     }
 
     public function apiQuaTreeFileListGet()
@@ -558,6 +588,8 @@ class Api extends Rest
                 table::rollback();
                 goto Finish;
             }
+
+//            $this->wordUpdate(1,$address,);
 
             $data = ['ret_code' => 0, 'ret_desc' => '添加成功'];
 
