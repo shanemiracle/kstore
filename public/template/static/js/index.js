@@ -16,6 +16,9 @@ $(function() {
         "fnInfoCallback":function (oSettings,iStart,iEnd,iMax,iTotal,sPre) {
 
         },
+        "sScrollY":"600",
+        "sScrollX":"100%",
+        // bScrollInfinite:true,
         bLengthChange:false,
         searching:true,
         processing:true,
