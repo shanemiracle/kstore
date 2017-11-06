@@ -75,8 +75,8 @@ $(function() {
         }
     });
 
+    //确定选择的节点和对应按钮的展示
     $('#container').on('select_node.jstree', function(e, data) {
-        // console.log(data);
         console.log(data.selected);
         parent_id = data.selected;
         var selectedeep = (data.selected[0]);
@@ -189,11 +189,21 @@ $(function() {
 
     //文件列表展示
     function fileListShow() {
-        console.log("redraw file list");
+        // console.log("redraw file list");
         id = parent_id;
-        var url = '/api/apiQuaTreeFileListGet?id=' + id;
 
-        table.ajax.url(url).load(null,false);
+        console.log(typeof(id));
+
+        // alert(id.substring(0, 1));
+
+        var url = '/api/apiQuaTreeFileListGet?id=' + id;
+        if(id!==2){
+          table.ajax.url(url).load(null,false); 
+        }else{
+            alert(2);
+            $(".table-show").hide();
+        }
+  
 
         // $.post('/api/apiQuaTreeFileListGet?id=' + id, function(res) {
         //     var str = '',

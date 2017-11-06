@@ -44,11 +44,11 @@
             <div class="row clearfix">
                 <label class="form-label col-xs-3 col-sm-4"><span class="c-red">*</span>英文名：</label>
                 <div class="formControls col-xs-7 col-sm-6">
-                    <input type="text" class="input-text radius" value="" placeholder="请输入文件英文名" id='en_name' required 
+                    <input type="text" class="input-text radius" value="" placeholder="请输入文件英文名"  id='en_name' required 
                     name="en_name" maxlength="18">
                 </div>
             </div>
-            <div class="row clearfix ">
+    <!--         <div class="row clearfix ">
                 <label class="form-label col-xs-3 col-sm-4 "><span class="c-red">*</span>所属部门：</label>
                 <div class="formControls col-xs-7 col-sm-6">
                     <span class="select-box">
@@ -56,16 +56,17 @@
                       </select>
                 </span>
                 </div>
-            </div>
+            </div> -->
             <div class="row clearfix ">
                 <label class="form-label col-xs-3 col-sm-4 "><span class="c-red">*</span>相关描述：</label>
                 <div class="formControls col-xs-7 col-sm-6">
-                    <textarea name="" id="" cols="40" rows="10" placeholder="关于文件的描述不超过120字" class='textarea'></textarea>
+                    <textarea name="level_remark" id="level_remark" cols="40" rows="10" placeholder="关于文件的描述不超过120字" class='textarea'></textarea>
                 </div>
             </div>
             <div class="row clearfix text-c ">
                 <div class="mt-20">
-                    <input class="btn btn-primary radius hs-submit save-pwd" type="button" value="&nbsp;&nbsp;提交&nbsp;&nbsp;">
+                    <input class="btn btn-primary radius submit-update" 
+                    type="button" value="&nbsp;&nbsp;提交&nbsp;&nbsp;">
                 </div>
             </div>
         </form>
@@ -76,11 +77,7 @@
     </script>
     <script type='text/javascript' src='/template/lib/h-ui/lib/layer/2.4/layer.js'></script>
    <!--  <script type="text/javascript" src="/template/lib/fileUpload/js/fileUpload.js"></script> -->
-
-    <script  src='/template/static/js/render.js'></script>
-
-    <!-- <script type='text/javascript' src='../static/js/all.js'></script>
- -->
+    <script src='/template/static/js/render.js'></script>
 </body>
 
 </html>

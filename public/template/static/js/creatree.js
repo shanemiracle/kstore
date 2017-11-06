@@ -165,7 +165,6 @@
      $('.record-one').on('click',function(e){
          e.preventDefault();
            var parentId = getURLParameter('parent_id');
-
            var departValue = $('.select-box option:selected').text();
            var data = {
              parent_id: parentId,
@@ -178,8 +177,6 @@
              size: flags.size
          }
          formSubmit('/api/apiQuaTree1RecAdd', data);
-
-
      })
 
      $('.record-two').on('click',function(e){

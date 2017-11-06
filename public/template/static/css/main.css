@@ -14,26 +14,35 @@ body {
 .wrapper {
   margin-left: 60px;
 }
-.wrapper .sidebars {
+.wrapper .sidebar {
   border: 1px solid #ccc;
   border-top: none;
-  height: 600px;
-  width: 500px;
+  border-bottom: none;
   overflow: auto;
+  padding:0;
 }
-.wrapper .sidebars .filter {
+.wrapper .sidebar .filter {
+  width:100%;
   border-bottom: 1px solid #ccc;
-  padding: 15px;
+  padding: 10px;
 }
 .wrapper .contents {
-  height: 600px;
-  width: 715px;
+  // border: 1px solid #ccc;
+  // border-top: none;
+  // border-bottom: none;
+  padding:0;
   overflow: auto;
 }
 .wrapper .contents .random-box .filter {
-  padding: 13px 10px;
+  padding:10px;
   border-bottom: 1px solid #ccc;
   display: none;
+}
+.contents .table-show{
+  padding:10px 30px 10px 10px
+}
+.contents .table-show  tr td{
+  text-align:center;
 }
 html,
 body,
