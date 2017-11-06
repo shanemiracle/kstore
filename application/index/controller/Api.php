@@ -559,6 +559,7 @@ class Api extends Rest
             $tableQuaTreeC->setCnName($cn_name);
             $tableQuaTreeC->setEnName($en_name);
             $tableQuaTreeC->setSuffix($suffix);
+            $tableQuaTreeC->setDepart($depart);
 
             if (0 != $tableQuaTreeC->add()) {
                 $data = ['ret_code' => 1, 'ret_desc' => '添加 qua_tree 失败'];
@@ -572,7 +573,6 @@ class Api extends Rest
             $tableQuaTreeFile->setRefreshVer(0);
             $tableQuaTreeFile->setRemark($remark);
             $tableQuaTreeFile->setAddress($address);
-            $tableQuaTreeFile->setDepart($depart);
             $tableQuaTreeFile->setCreateUser($create_user);
             $tableQuaTreeFile->setSize($size);
 
@@ -723,6 +723,7 @@ class Api extends Rest
             $tableQuaTreeC->setCnName($cn_name);
             $tableQuaTreeC->setEnName($en_name);
             $tableQuaTreeC->setSuffix($suffix);
+            $tableQuaTreeC->setDepart($depart);
 
             if (0 != $tableQuaTreeC->add()) {
                 $data = ['ret_code' => 1, 'ret_desc' => '添加 qua_tree 失败'];
@@ -736,7 +737,6 @@ class Api extends Rest
             $tableQuaTreeFile->setRefreshVer(0);
             $tableQuaTreeFile->setRemark($remark);
             $tableQuaTreeFile->setAddress($address);
-            $tableQuaTreeFile->setDepart($depart);
             $tableQuaTreeFile->setCreateUser($create_user);
             $tableQuaTreeFile->setSize($size);
 
@@ -820,6 +820,7 @@ class Api extends Rest
             $tableQuaTreeC->setCnName($cn_name);
             $tableQuaTreeC->setEnName($en_name);
             $tableQuaTreeC->setSuffix($suffix);
+            $tableQuaTreeC->setDepart($depart);
 
             if (0 != $tableQuaTreeC->add()) {
                 $data = ['ret_code' => 1, 'ret_desc' => '添加 qua_tree 失败'];
@@ -833,7 +834,6 @@ class Api extends Rest
             $tableQuaTreeFile->setRefreshVer(0);
             $tableQuaTreeFile->setRemark($remark);
             $tableQuaTreeFile->setAddress($address);
-            $tableQuaTreeFile->setDepart($depart);
             $tableQuaTreeFile->setCreateUser($create_user);
             $tableQuaTreeFile->setSize($size);
 
@@ -918,6 +918,7 @@ class Api extends Rest
             $tableQuaTreeC->setCnName($cn_name);
             $tableQuaTreeC->setEnName($en_name);
             $tableQuaTreeC->setSuffix($suffix);
+            $tableQuaTreeC->setDepart($depart);
 
             if (0 != $tableQuaTreeC->add()) {
                 $data = ['ret_code' => 1, 'ret_desc' => '添加 qua_tree 失败'];
@@ -932,7 +933,6 @@ class Api extends Rest
             $tableQuaTreeFile->setRefreshVer(0);
             $tableQuaTreeFile->setRemark($remark);
             $tableQuaTreeFile->setAddress($address);
-            $tableQuaTreeFile->setDepart($depart);
             $tableQuaTreeFile->setCreateUser($create_user);
             $tableQuaTreeFile->setSize($size);
 
@@ -1017,6 +1017,7 @@ class Api extends Rest
             $tableQuaTreeC->setCnName($cn_name);
             $tableQuaTreeC->setEnName($en_name);
             $tableQuaTreeC->setSuffix($suffix);
+            $tableQuaTreeC->setDepart($depart);
 
             if (0 != $tableQuaTreeC->add()) {
                 $data = ['ret_code' => 1, 'ret_desc' => '添加 qua_tree 失败'];
@@ -1031,7 +1032,6 @@ class Api extends Rest
             $tableQuaTreeFile->setRefreshVer(0);
             $tableQuaTreeFile->setRemark($remark);
             $tableQuaTreeFile->setAddress($address);
-            $tableQuaTreeFile->setDepart($depart);
             $tableQuaTreeFile->setCreateUser($create_user);
             $tableQuaTreeFile->setSize($size);
 
@@ -1116,6 +1116,7 @@ class Api extends Rest
             $tableQuaTreeC->setCnName($cn_name);
             $tableQuaTreeC->setEnName($en_name);
             $tableQuaTreeC->setSuffix($suffix);
+            $tableQuaTreeC->setDepart($depart);
 
             if (0 != $tableQuaTreeC->add()) {
                 $data = ['ret_code' => 1, 'ret_desc' => '添加 qua_tree 失败'];
@@ -1130,7 +1131,6 @@ class Api extends Rest
             $tableQuaTreeFile->setRefreshVer(0);
             $tableQuaTreeFile->setRemark($remark);
             $tableQuaTreeFile->setAddress($address);
-            $tableQuaTreeFile->setDepart($depart);
             $tableQuaTreeFile->setCreateUser($create_user);
             $tableQuaTreeFile->setSize($size);
 
@@ -1206,7 +1206,6 @@ class Api extends Rest
             $tableQuaTreeFile->setSelfVer($tableQuaTree->getSelfVer() + 1);
             $tableQuaTreeFile->setRemark($remark);
             $tableQuaTreeFile->setAddress($address);
-            $tableQuaTreeFile->setDepart($depart);
             $tableQuaTreeFile->setCreateUser($create_user);
             $tableQuaTreeFile->setSize($size);
 
@@ -1222,6 +1221,7 @@ class Api extends Rest
             $tableQuaTree->setCnName($cn_name);
             $tableQuaTree->setEnName($en_name);
             $tableQuaTree->setSuffix($suffix);
+            $tableQuaTree->setDepart($depart);
 
             if (0 != $tableQuaTree->update($tableQuaTree->getId())) {
                 $data = ['ret_code' => 1, 'ret_desc' => '更新节点失败'];
@@ -1288,7 +1288,6 @@ class Api extends Rest
             $tableQuaTreeFile->setSelfVer($tableQuaTree->getSelfVer() + 1);
             $tableQuaTreeFile->setRemark($remark);
             $tableQuaTreeFile->setAddress($address);
-            $tableQuaTreeFile->setDepart($depart);
             $tableQuaTreeFile->setCreateUser($create_user);
             $tableQuaTreeFile->setSize($size);
 
@@ -1304,6 +1303,7 @@ class Api extends Rest
             $tableQuaTree->setCnName($cn_name);
             $tableQuaTree->setEnName($en_name);
             $tableQuaTree->setSuffix($suffix);
+            $tableQuaTree->setDepart($depart);
 
             if (0 != $tableQuaTree->update($tableQuaTree->getId())) {
                 $data = ['ret_code' => 1, 'ret_desc' => '更新节点失败'];
@@ -1370,7 +1370,6 @@ class Api extends Rest
             $tableQuaTreeFile->setSelfVer($tableQuaTree->getSelfVer() + 1);
             $tableQuaTreeFile->setRemark($remark);
             $tableQuaTreeFile->setAddress($address);
-            $tableQuaTreeFile->setDepart($depart);
             $tableQuaTreeFile->setCreateUser($create_user);
             $tableQuaTreeFile->setSize($size);
 
@@ -1386,6 +1385,7 @@ class Api extends Rest
             $tableQuaTree->setCnName($cn_name);
             $tableQuaTree->setEnName($en_name);
             $tableQuaTree->setSuffix($suffix);
+            $tableQuaTree->setDepart($depart);
 
             if (0 != $tableQuaTree->update($tableQuaTree->getId())) {
                 $data = ['ret_code' => 1, 'ret_desc' => '更新节点失败'];
@@ -1451,7 +1451,6 @@ class Api extends Rest
             $tableQuaTreeFile->setType(2);
             $tableQuaTreeFile->setSelfVer($tableQuaTree->getSelfVer() + 1);
             $tableQuaTreeFile->setRemark($remark);
-            $tableQuaTreeFile->setAddress($address);
             $tableQuaTreeFile->setDepart($depart);
             $tableQuaTreeFile->setCreateUser($create_user);
             $tableQuaTreeFile->setSize($size);
@@ -1468,6 +1467,7 @@ class Api extends Rest
             $tableQuaTree->setCnName($cn_name);
             $tableQuaTree->setEnName($en_name);
             $tableQuaTree->setSuffix($suffix);
+            $tableQuaTree->setDepart($depart);
 
             if (0 != $tableQuaTree->update($tableQuaTree->getId())) {
                 $data = ['ret_code' => 1, 'ret_desc' => '更新节点失败'];
@@ -1553,7 +1553,6 @@ class Api extends Rest
             $tableQuaTreeFile->setSelfVer($tableQuaTree->getSelfVer() + 1);
             $tableQuaTreeFile->setRemark($remark);
             $tableQuaTreeFile->setAddress($address);
-            $tableQuaTreeFile->setDepart($depart);
             $tableQuaTreeFile->setCreateUser($create_user);
             $tableQuaTreeFile->setSize($size);
 
@@ -1569,6 +1568,7 @@ class Api extends Rest
             $tableQuaTree->setCnName($cn_name);
             $tableQuaTree->setEnName($en_name);
             $tableQuaTree->setSuffix($suffix);
+            $tableQuaTree->setDepart($depart);
 
             if (0 != $tableQuaTree->update($tableQuaTree->getId())) {
                 $data = ['ret_code' => 1, 'ret_desc' => '更新节点失败'];
@@ -1635,7 +1635,6 @@ class Api extends Rest
             $tableQuaTreeFile->setSelfVer($tableQuaTree->getSelfVer() + 1);
             $tableQuaTreeFile->setRemark($remark);
             $tableQuaTreeFile->setAddress($address);
-            $tableQuaTreeFile->setDepart($depart);
             $tableQuaTreeFile->setCreateUser($create_user);
             $tableQuaTreeFile->setSize($size);
 
@@ -1651,6 +1650,7 @@ class Api extends Rest
             $tableQuaTree->setCnName($cn_name);
             $tableQuaTree->setEnName($en_name);
             $tableQuaTree->setSuffix($suffix);
+            $tableQuaTree->setDepart($depart);
 
             if (0 != $tableQuaTree->update($tableQuaTree->getId())) {
                 $data = ['ret_code' => 1, 'ret_desc' => '更新节点失败'];
@@ -1718,7 +1718,6 @@ class Api extends Rest
             $tableQuaTreeFile->setSelfVer($tableQuaTree->getRefreshVer() + 1);
             $tableQuaTreeFile->setRemark($remark);
             $tableQuaTreeFile->setAddress($address);
-            $tableQuaTreeFile->setDepart($depart);
             $tableQuaTreeFile->setCreateUser($create_user);
             $tableQuaTreeFile->setSize($size);
 
@@ -1733,6 +1732,7 @@ class Api extends Rest
             $tableQuaTree->setCnName($cn_name);
             $tableQuaTree->setEnName($en_name);
             $tableQuaTree->setSuffix($suffix);
+            $tableQuaTree->setDepart($depart);
 
             if (0 != $tableQuaTree->update($tableQuaTree->getId())) {
                 $data = ['ret_code' => 1, 'ret_desc' => '更新节点失败'];

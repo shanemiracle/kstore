@@ -24,7 +24,6 @@ class tableQuaTreeFile
     private $refresh_ver;
     private $remark;
     private $address;
-    private $depart;
     private $create_user;
     private $size;
     private $create_time;
@@ -63,7 +62,6 @@ class tableQuaTreeFile
             $this->refresh_ver = $data[0]['refresh_ver'];
             $this->remark = $data[0]['remark'];
             $this->address = $data[0]['address'];
-            $this->depart = $data[0]['depart'];
             $this->create_user = $data[0]['create_user'];
             $this->create_time = $data[0]['create_time'];
 
@@ -74,7 +72,7 @@ class tableQuaTreeFile
     }
 
     public function add(){
-        $sql = "INSERT INTO ".$this->tableName." (`id`, `parent_id`, `type`, `self_ver`, `refresh_ver`, `remark`, `address`, `depart`, `create_user`,`size`) VALUES (:id, :parent_id, :type, :self_ver, :refresh_ver, :remark, :address, :depart, :create_user, :size);";
+        $sql = "INSERT INTO ".$this->tableName." (`id`, `parent_id`, `type`, `self_ver`, `refresh_ver`, `remark`, `address`, `create_user`,`size`) VALUES (:id, :parent_id, :type, :self_ver, :refresh_ver, :remark, :address, :create_user, :size);";
 
         $data=[];
 
@@ -118,13 +116,6 @@ class tableQuaTreeFile
         }
         else{
             $data['address'] = $this->address;
-        }
-
-        if($this->depart==null){
-            $data['depart'] = '';
-        }
-        else{
-            $data['depart'] = $this->depart;
         }
 
         if($this->create_user==null){
@@ -191,11 +182,6 @@ class tableQuaTreeFile
         if($this->address!=null){
             $updateSql .= ',`address`=:address';
             $updateData['address'] = $this->address;
-        }
-
-        if($this->depart!=null){
-            $updateSql .= ',`depart`=:depart';
-            $updateData['depart'] = $this->depart;
         }
 
         if($this->create_user!=null){

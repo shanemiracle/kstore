@@ -30,6 +30,7 @@ class tableQuaTree
     private $cn_name;
     private $en_name;
     private $suffix;
+    private $depart;
     private $create_time;
 
     private $all_data;
@@ -67,6 +68,7 @@ class tableQuaTree
             $this->cn_name = $data[0]['cn_name'];
             $this->en_name = $data[0]['en_name'];
             $this->suffix = $data[0]['suffix'];
+            $this->depart = $data[0]['depart'];
             $this->create_time = $data[0]['create_time'];
 
             $this->all_data = $data[0];
@@ -96,6 +98,7 @@ class tableQuaTree
             $this->cn_name = $data[0]['cn_name'];
             $this->en_name = $data[0]['en_name'];
             $this->suffix = $data[0]['suffix'];
+            $this->depart = $data[0]['depart'];
             $this->create_time = $data[0]['create_time'];
 
             $this->all_data = $data[0];
@@ -108,7 +111,7 @@ class tableQuaTree
 
     public function add()
     {
-        $sql = "INSERT INTO " . $this->tableName . " (`id`, `level`, `parent_seq` ,`next_seq`, `rec_seq`, `level_remark`, `parent`, `self_ver`, `refresh_ver`, `child_create_num`, `child_record_create_num`, `cn_name`, `en_name`, `suffix`) VALUES (:id, :level, :parent_seq, :next_seq, :rec_seq, :level_remark, :parent, :self_ver, :refresh_ver, :child_create_num, :child_record_create_num, :cn_name, :en_name, :suffix);";
+        $sql = "INSERT INTO " . $this->tableName . " (`id`, `level`, `parent_seq` ,`next_seq`, `rec_seq`, `level_remark`, `parent`, `self_ver`, `refresh_ver`, `child_create_num`, `child_record_create_num`, `cn_name`, `en_name`, `suffix`, `depart`) VALUES (:id, :level, :parent_seq, :next_seq, :rec_seq, :level_remark, :parent, :self_ver, :refresh_ver, :child_create_num, :child_record_create_num, :cn_name, :en_name, :suffix,:depart);";
 
         $data = [];
 
@@ -188,6 +191,12 @@ class tableQuaTree
             $data['suffix'] = '';
         } else {
             $data['suffix'] = $this->suffix;
+        }
+
+        if ($this->depart == null) {
+            $data['depart'] = '';
+        } else {
+            $data['depart'] = $this->depart;
         }
 
         $data['id'] = (tableQuaTree::$s_id + 1);
@@ -270,6 +279,11 @@ class tableQuaTree
         if ($this->suffix != null) {
             $updateSql .= ',`suffix`=:suffix';
             $updateData['suffix'] = $this->suffix;
+        }
+
+        if ($this->depart != null) {
+            $updateSql .= ',`depart`=:depart';
+            $updateData['depart'] = $this->depart;
         }
 
 
@@ -564,6 +578,24 @@ class tableQuaTree
     {
         $this->parent_seq = $parent_seq;
     }
+
+    /**
+     * @return mixed
+     */
+    public function getDepart()
+    {
+        return $this->depart;
+    }
+
+    /**
+     * @param mixed $depart
+     */
+    public function setDepart($depart)
+    {
+        $this->depart = $depart;
+    }
+
+
 
 
 }
