@@ -107,7 +107,7 @@ $(function() {
           param.id= parent_id[0];
           $.post('/api/apiQuaTreeDelete',param,function(res){
             if(res.res_code==0){
-               layer.msg('删除成功')
+               layer.msg('删除成功');
                redraw();
             }else{
               layer.msg(res.ret_desc);
@@ -117,7 +117,7 @@ $(function() {
           layer.close(index);
         })
 
-    })
+    });
 
       //下一层文件弹窗
     $('.pop-one').on('click', function() {
