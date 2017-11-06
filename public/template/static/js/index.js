@@ -2,6 +2,7 @@ $(function() {
     //实现搜索功能
     var to = false;
     var parent_id = '';
+    var parent_parent = '';
     var id = '';
     $('#searchMenu').keyup(function() {
         if (to) { clearTimeout(to); }
@@ -70,12 +71,6 @@ $(function() {
                 'core': {
                     'data': res.data
                 },
-                // types:{
-                //     "default" : {
-                //       "icon" : "icon iconfont icon-loucengyi"
-                //   } 
-                // },
-                // "state": { "key": "state_demo" },
                 "plugins": ["sort", "state", "search", 'wholerow', "types"]
             });
 
@@ -92,6 +87,8 @@ $(function() {
         var deep = selectedeep.substring(0, 1);
         $('.contents .filter').eq(deep).show().siblings().hide();
 
+        parent_parent = data.node.parent;
+
         fileListShow();
     });
 
@@ -102,21 +99,28 @@ $(function() {
             shade: 0,
             icon:3,
             end:function () {
+                // $('#container').jstree(true).select(parent_id);
+                // $('#container').jstree(true).select_node(parent_id);
                 redraw();
+                fileListShow();
             }
         },function(){
-          layer.close(index);
+
           var param={};
           param.id= parent_id[0];
           $.post('/api/apiQuaTreeDelete',param,function(res){
-            if(res.res_code==0){
+            if(res.ret_code==0){
                layer.msg('删除成功');
+                parent_id = parent_parent;
+
             }else{
               layer.msg(res.ret_desc);
             }
-          })
+          });
+
+            layer.close(index);
         },function(){
-          layer.close(index);
+            layer.close(index);
         })
 
     });
@@ -234,17 +238,12 @@ $(function() {
             content: '/tree/decSection?parent_id=' + parent_id
 
         });
-    })
+    });
 
 
     //文件列表展示
     function fileListShow() {
-        // console.log("redraw file list");
         id = parent_id;
-
-        // console.log(typeof(id));
-
-        // alert(id.substring(0, 1));
 
         var url = '/api/apiQuaTreeFileListGet?id=' + id;
         var id_r = new Array();
@@ -260,23 +259,6 @@ $(function() {
             $(".table-show").hide();
         }
 
-
-        // $.post('/api/apiQuaTreeFileListGet?id=' + id, function(res) {
-        //     var str = '',
-        //         len = res.data.length,
-        //         ret = res.data;
-        //     for (var i = 0; i < len; i++) {
-        //         str += "<tr class='text-c c-666'>" +
-        //             "<td>" + "<a href='" + ret[i].address + "'" + "download='" + ret[i].file_name + "'>" + ret[i].file_name + "</a>" + "</td>" +
-        //             "<td>" + ret[i].depart + "</td>" +
-        //             "<td>" + ret[i].create_time + "</td>" +
-        //             "<td>" + ret[i].remark + "</td>" +
-        //             "</tr>"
-        //     }
-        //     $('.table-content').html(str);
-
-        // }
-        // )
     }
 
     function redraw(){
