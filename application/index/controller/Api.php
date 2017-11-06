@@ -329,6 +329,11 @@ class Api extends Rest
 
     }
 
+    private function wordUpdate($level,$fileName,$fileAddr,$fileVer,$fileRefresh,$date)
+    {
+
+    }
+
     public function apiQuaTreeFileListGet()
     {
         $id = Request::instance()->param('id');
