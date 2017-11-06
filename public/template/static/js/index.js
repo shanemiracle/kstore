@@ -20,7 +20,7 @@ $(function() {
         searching:true,
         processing:true,
         aaSorting:[
-            [1,'asc']
+            [0,'asc']
         ],
         bStateSave:true,
         columns:[
