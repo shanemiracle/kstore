@@ -27,6 +27,21 @@
          "fileType": ['xlsx', 'png', 'jpg', 'docx', 'doc'] //文件类型限制，默认不限制，注意写的是文件后缀
      })
 
+     //分段描述更新
+     $('.section-update').on('click',function(){
+        var param={
+            id:getURLParameter('parent_id'),
+            level_remark: $('#level_remark').val()
+        };
+        $.post('/api/apiQuaTree1_5Update',param,function(res){
+             if(res.ret_code==0){
+                layer.msg('修改成功');
+                location.reload();
+             }else{
+                layer.msg(res.ret_desc);
+             }
+        })
+     })
 
      function editInfo(api){
         var param={};

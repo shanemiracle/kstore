@@ -216,6 +216,19 @@ $(function() {
     });
 
 
+   //分段描述修改(即是1.5层)
+    $('.sec-descibe').on('click',function(){
+        // alert(1);
+        var index = layer.open({
+            type: 2,
+            title: '分段描述的修改',
+            area: ['480px', '270px'],
+            content: '/tree/decSection?parent_id=' + parent_id
+
+        });
+    })
+
+
     //文件列表展示
     function fileListShow() {
         // console.log("redraw file list");
