@@ -22,6 +22,8 @@ $(function() {
         aaSorting:[
             [0,'asc']
         ],
+        paging:false,
+        info:false,
         bStateSave:true,
         columns:[
             {
