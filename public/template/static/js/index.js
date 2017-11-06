@@ -136,7 +136,7 @@ $(function() {
                 redraw();
             }
         });
-    })
+    });
 
 
       //记录文件弹窗
@@ -194,18 +194,24 @@ $(function() {
         // console.log("redraw file list");
         id = parent_id;
 
-        console.log(typeof(id));
+        // console.log(typeof(id));
 
         // alert(id.substring(0, 1));
 
         var url = '/api/apiQuaTreeFileListGet?id=' + id;
-        if(id!==2){
+        var id_r = new Array();
+        id_r = id[0].split("-");
+        if(id_r.length != 2){
+            console.log("错误id"+id);
+        }
+        if(id_r[0] != "0" && id_r[0] != "2"){
+            $(".table-show").show();
           table.ajax.url(url).load(null,false); 
         }else{
-            alert(2);
+            // console.log("隐藏");
             $(".table-show").hide();
         }
-  
+
 
         // $.post('/api/apiQuaTreeFileListGet?id=' + id, function(res) {
         //     var str = '',

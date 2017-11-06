@@ -383,6 +383,23 @@ class Api extends Rest
 
             for ($i = 0; $i < count($file_ar); $i++) {
                 $fileNode = $file_ar[$i];
+                $sizeNum = $fileNode['size'];
+                if($sizeNum <= 1024) {
+                    $size = '1K';
+                }
+                else if($sizeNum<=1048576){
+                    $size = round($sizeNum/1024,2).'K';
+                }
+                else if($sizeNum<=1073741824){
+                    $size = round($sizeNum/1048576,2)."M";
+                }
+                else if($sizeNum<=1099511627776){
+                    $size = round($sizeNum/1073741824,2).'G';
+                }
+                else{
+                    $size = round($sizeNum/1099511627776,2).'T';
+                }
+
                 if ($id_ar[0] == 1) {
                     $file_name = sprintf("%s_%s%s_%03d%s", $this->treeLevelAddr($id_ar[0], $param[0]),
                         $treeNode['cn_name'], $treeNode['en_name'] == null ? '' : '_' . $treeNode['en_name'], $fileNode['self_ver'], $treeNode['suffix']);
@@ -398,7 +415,7 @@ class Api extends Rest
                 }
 
                 array_push($r_data, ['file_name' => $file_name, 'address' => $fileNode['address'], 'remark' => $fileNode['remark'],
-                    'depart' => $fileNode['depart'], 'create_user' => $fileNode['create_user'], 'size' => $fileNode['size'], 'create_time' => $fileNode['create_time']]);
+                    'depart' => $fileNode['depart'], 'create_user' => $fileNode['create_user'], 'size' =>$size, 'create_time' => $fileNode['create_time']]);
             }
 
             $data = ['ret_code' => 0, 'ret_desc' => '成功', 'data' => $r_data];
