@@ -76,7 +76,7 @@ $(function() {
                 //   } 
                 // },
                 // "state": { "key": "state_demo" },
-    "plugins": ["sort", "state", "search", 'wholerow', "types"]
+                "plugins": ["sort", "state", "search", 'wholerow', "types"]
             });
 
         } else {
@@ -100,7 +100,10 @@ $(function() {
         var index =layer.confirm('你确定要删除吗',{
             btn:['是','否'],
             shade: 0,
-            icon:3
+            icon:3,
+            end:function () {
+                redraw();
+            }
         },function(){
           layer.close(index);
           var param={};
@@ -108,7 +111,6 @@ $(function() {
           $.post('/api/apiQuaTreeDelete',param,function(res){
             if(res.res_code==0){
                layer.msg('删除成功');
-               redraw();
             }else{
               layer.msg(res.ret_desc);
             }
@@ -213,10 +215,26 @@ $(function() {
             type: 2,
             title: '文件版本更新',
             area: ['700px', '560px'],
-            content: '/tree/editfirst?parent_id=' + parent_id
+            content: '/tree/editfirst?parent_id=' + parent_id,
+            end:function () {
+                redraw();
+            }
 
         });
     });
+
+
+   //分段描述修改(即是1.5层)
+    $('.sec-descibe').on('click',function(){
+        // alert(1);
+        var index = layer.open({
+            type: 2,
+            title: '分段描述的修改',
+            area: ['480px', '270px'],
+            content: '/tree/decSection?parent_id=' + parent_id
+
+        });
+    })
 
 
     //文件列表展示

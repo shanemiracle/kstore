@@ -11,6 +11,10 @@ class Tree
     {
       return view('tree/editFirst');
     }
+    public function decSection(){
+      return view('tree/decSection');
+    }
+
     public function popsecond(){
       return view('tree/createSecond');
     } 
