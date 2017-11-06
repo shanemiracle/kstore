@@ -88,7 +88,30 @@ $(function() {
         fileListShow();
     });
 
-    
+    // 树的删除
+    $('.del-tree').on('click',function(){
+        var index =layer.confirm('你确定要删除吗',{
+            btn:['是','否'],
+            shade: 0,
+            icon:3
+        },function(){
+          layer.close(index);
+          var param={};
+          param.id= parent_id[0];
+          $.post('/api/apiQuaTreeDelete',param,function(res){
+            if(res.res_code==0){
+               layer.msg('删除成功')
+               redraw();
+            }else{
+              layer.msg(res.ret_desc);
+            }
+          })
+        },function(){
+          layer.close(index);
+        })
+
+    })
+
       //下一层文件弹窗
     $('.pop-one').on('click', function() {
         var index = layer.open({
@@ -105,7 +128,7 @@ $(function() {
     $('.pop-two').on('click', function() {
         var index = layer.open({
             type: 2,
-            title: '创建2一层页面',
+            title: '创建下一层页面',
             area: ['560px', '320px'],
             content: '/tree/popsecond?parent_id=' + parent_id,
             end:function(){
@@ -181,8 +204,8 @@ $(function() {
     $('.update-file').on('click', function() {
         var index = layer.open({
             type: 2,
-            title: '更新第一层',
-            area: ['600px', '420px'],
+            title: '文件版本更新',
+            area: ['700px', '560px'],
             content: '/tree/editfirst?parent_id=' + parent_id
 
         });

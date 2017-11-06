@@ -19,6 +19,8 @@
     <!-- <link rel="stylesheet" href="../lib/layer/theme/default/layer.css">
  -->
     <link rel="stylesheet" href="/template/lib/jstree/themes/default/style.min.css">
+    <link rel="stylesheet" href="/template/lib/fileUpload/css/iconfont.css" rel="stylesheet" type="text/css" />
+    <link href="/template/lib/fileUpload/css/fileUpload.css" type="text/css" />
     <link rel="stylesheet" href="/template/static/css/main.css">
     <style type="text/css">
 
@@ -48,7 +50,7 @@
                     name="en_name" maxlength="18">
                 </div>
             </div>
-    <!--         <div class="row clearfix ">
+            <div class="row clearfix ">
                 <label class="form-label col-xs-3 col-sm-4 "><span class="c-red">*</span>所属部门：</label>
                 <div class="formControls col-xs-7 col-sm-6">
                     <span class="select-box">
@@ -56,13 +58,21 @@
                       </select>
                 </span>
                 </div>
-            </div> -->
+            </div>
             <div class="row clearfix ">
                 <label class="form-label col-xs-3 col-sm-4 "><span class="c-red">*</span>相关描述：</label>
                 <div class="formControls col-xs-7 col-sm-6">
                     <textarea name="level_remark" id="level_remark" cols="40" rows="10" placeholder="关于文件的描述不超过120字" class='textarea'></textarea>
                 </div>
             </div>
+            <div class=" row clearfix text-c  ">
+                <label class="form-label col-xs-3 col-sm-4 "><span class="c-red">*</span>附件上传：</label>
+                <div class="formControls col-xs-7 col-sm-6">
+                    <div id="fileUploadContent" class="fileUploadContent clearfix">
+                    </div>
+                </div>
+            </div>
+
             <div class="row clearfix text-c ">
                 <div class="mt-20">
                     <input class="btn btn-primary radius submit-update" 
@@ -76,7 +86,7 @@
     <script type='text/javascript' src='/template/lib/h-ui/lib/jquery.validation/1.14.0/jquery.validate.js'>
     </script>
     <script type='text/javascript' src='/template/lib/h-ui/lib/layer/2.4/layer.js'></script>
-   <!--  <script type="text/javascript" src="/template/lib/fileUpload/js/fileUpload.js"></script> -->
+    <script type="text/javascript" src="/template/lib/fileUpload/js/fileUpload.js"></script>
     <script src='/template/static/js/render.js'></script>
 </body>
 

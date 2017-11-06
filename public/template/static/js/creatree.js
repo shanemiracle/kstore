@@ -2,7 +2,6 @@
      //渲染部门数据 
 
      var createForm = {
-
          init: function() {
 
          },
@@ -52,7 +51,7 @@
          "onUpload": afterUpload, //在上传后执行的函数
          "ismultiple": false, //是否允许上传多个
          "scheduleStandard": true,
-         //autoCommit:true,//文件是否自动上传
+         autoCommit:false,//文件是否自动上传
          "fileType": ['xlsx', 'png', 'jpg', 'docx', 'doc'] //文件类型限制，默认不限制，注意写的是文件后缀
      })
 
@@ -139,7 +138,7 @@
              address: flags.address,
              size: flags.size
          }
-         formSubmit('/api/apiQuaTree2Add', data);
+         formSubmit('/api/apiQuaTree2Add',data);
      });
      $('#submit-four').on('click', function(e) {
          e.preventDefault();
@@ -159,7 +158,6 @@
          }
          formSubmit('/api/apiQuaTree3Add', data);
      });
-
 
      //上传记录文件
      $('.record-one').on('click',function(e){
@@ -195,14 +193,11 @@
              size: flags.size
          }
          formSubmit('/api/apiQuaTree2RecAdd', data);
-
-
      })
 
      $('.record-three').on('click',function(e){
          e.preventDefault();
            var parentId = getURLParameter('parent_id');
-
            var departValue = $('.select-box option:selected').text();
            var data = {
              parent_id: parentId,
@@ -215,8 +210,6 @@
              size: flags.size
          }
          formSubmit('/api/apiQuaTree3RecAdd', data);
-
-
      })
 
 
@@ -268,7 +261,6 @@
  }
 
   function getParam(){
-
       var parentId = getURLParameter('parent_id');
       var departValue = $('.select-box option:selected').text();
       var data = {
@@ -282,7 +274,6 @@
              size: flags.size
       }
       return data;
-
  }
 
  function formSubmit(api, param) {
