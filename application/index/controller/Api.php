@@ -445,7 +445,7 @@ class Api extends Rest
                 }
 
                 array_push($r_data, ['file_name' => $file_name, 'address' => $fileNode['address'], 'remark' => $fileNode['remark'],
-                    'depart' => $treeNode['depart'], 'create_user' => $fileNode['create_user'], 'size' =>$size, 'create_time' => $fileNode['create_time']]);
+                    'depart' => $treeNode['depart'], 'create_user' => $fileNode['create_user'], 'size' =>$size, 'create_time' => $fileNode['create_time'],'file_ver'=>sprintf("%03d",$fileNode['self_ver'])]);
             }
 
             $data = ['ret_code' => 0, 'ret_desc' => '成功', 'data' => $r_data];

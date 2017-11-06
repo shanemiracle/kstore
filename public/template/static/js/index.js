@@ -38,8 +38,12 @@ $(function() {
                 }
             },
             {
+                data:"file_ver"
+            },
+            {
                 data:"remark"
             },
+
             {
                 data:"depart"
             },
