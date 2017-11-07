@@ -108,7 +108,6 @@ $(function() {
 
           var param={};
           param.id= parent_id[0];
-          console.log(param);
           $.post('/api/apiQuaTreeDelete',param,function(res){
             if(res.ret_code==0){
                layer.msg('删除成功');
